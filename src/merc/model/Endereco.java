@@ -4,14 +4,10 @@
  */
 package merc.model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author bsbru
  */
-public class Item {
-    
-
+public class Endereco {
     
 }

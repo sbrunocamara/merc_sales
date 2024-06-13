@@ -110,8 +110,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuFornecedoresActionclick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFornecedoresActionclick
         // TODO add your handling code here:
-//        Usuarios telaUsuario = new Usuarios(null);
-//        telaUsuario.run();
+;
         
     }//GEN-LAST:event_jMenuFornecedoresActionclick
 
@@ -119,11 +118,7 @@ public class Principal extends javax.swing.JFrame {
         FornecedorController  fornecedoresController = new FornecedorController();
         ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
         
-//        for(int i = 0; i <= carregaUsuarios.size(); i++){
-//            
-//            System.out.println(carregaUsuarios.get(i).getNome());
-//             
-//        }
+
         
         
         Fornecedores telaFornecedores = new Fornecedores(carregaFornecedores);

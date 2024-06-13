@@ -10,11 +10,8 @@ import java.util.ArrayList;
  *
  * @author bsbru
  */
-public class Financeiro {
+public class Produto {
     
 
     
 }
-
-
-

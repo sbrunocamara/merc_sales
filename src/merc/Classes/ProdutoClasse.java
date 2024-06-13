@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package merc.model;
-
-import java.util.ArrayList;
+package merc.Classes;
 
 /**
  *
  * @author bsbru
  */
-public class Os_item {
+public class ProdutoClasse {
     
-
 }

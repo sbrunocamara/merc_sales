@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author bsbru
  */
-public class Pessoa {
-
+public class Pedido {
     
+
 }

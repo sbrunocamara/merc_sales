@@ -18,7 +18,7 @@ public class Fornecedores extends javax.swing.JFrame {
 
     public  ArrayList<FornecedorClasse> fornecedores;
     /**
-     * Creates new form Usuarios
+     * Creates new form Fornecedores
      */
     public Fornecedores(ArrayList<FornecedorClasse> fornecedores) {
         
@@ -47,7 +47,7 @@ public class Fornecedores extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanelUsuarios = new javax.swing.JPanel();
+        jPanelFornecedores = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFornecedores = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -108,17 +108,17 @@ public class Fornecedores extends javax.swing.JFrame {
         jTableFornecedores.setToolTipText("");
         jScrollPane1.setViewportView(jTableFornecedores);
 
-        javax.swing.GroupLayout jPanelUsuariosLayout = new javax.swing.GroupLayout(jPanelUsuarios);
-        jPanelUsuarios.setLayout(jPanelUsuariosLayout);
-        jPanelUsuariosLayout.setHorizontalGroup(
-            jPanelUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelUsuariosLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelFornecedoresLayout = new javax.swing.GroupLayout(jPanelFornecedores);
+        jPanelFornecedores.setLayout(jPanelFornecedoresLayout);
+        jPanelFornecedoresLayout.setHorizontalGroup(
+            jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFornecedoresLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE))
         );
-        jPanelUsuariosLayout.setVerticalGroup(
-            jPanelUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelUsuariosLayout.createSequentialGroup()
+        jPanelFornecedoresLayout.setVerticalGroup(
+            jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFornecedoresLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 54, Short.MAX_VALUE))
         );
@@ -154,7 +154,7 @@ public class Fornecedores extends javax.swing.JFrame {
                                 .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jPanelUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -168,7 +168,7 @@ public class Fornecedores extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addGap(18, 18, 18)
-                .addComponent(jPanelUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -183,8 +183,8 @@ public class Fornecedores extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        UsuariosAdd telaUsuarioAdd = new UsuariosAdd();
-        telaUsuarioAdd.setVisible(true);
+        FornecedoresAdd telaFornecedorAdd = new FornecedoresAdd();
+        telaFornecedorAdd.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -269,7 +269,7 @@ public class Fornecedores extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanelUsuarios;
+    private javax.swing.JPanel jPanelFornecedores;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableFornecedores;
     // End of variables declaration//GEN-END:variables

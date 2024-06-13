@@ -8,8 +8,6 @@ package merc.model;
  *
  * @author bsbru
  */
-public class Cidade {
-    
-
+public class ClienteEndereco {
     
 }
