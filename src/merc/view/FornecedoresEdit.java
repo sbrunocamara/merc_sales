@@ -195,6 +195,13 @@ public class FornecedoresEdit extends javax.swing.JFrame {
            return;
             
         }
+       
+        this.fornecedores.setNome(fornecedorNameEdit.getText());
+        this.fornecedores.setEmail(fornecedorEmailEdit.getText());
+        this.fornecedores.setCnpj(fornecedorCnpjEdit.getText());
+        this.fornecedores.setTelefone(fornecedorTelefoneEdit.getText());
+        
+ 
         try{
             
             FornecedorController fornecedorController = new FornecedorController();
@@ -202,19 +209,17 @@ public class FornecedoresEdit extends javax.swing.JFrame {
             FornecedorClasse update = fornecedorController.update(this.fornecedores);
       
             
-            if(this.fornecedores == update){
-                 JOptionPane.showMessageDialog(null, "Erro ao salvar os dados!");
-            }
             
-            if(this.fornecedores != update){
+            if(this.fornecedores == update){
              JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
              this.fornecedores = update;
-             this.limpaTela(evt);
+             this.atualizaTela(evt);
             
             }
             
             
         }catch(Exception e){
+            
             
             return;
         

@@ -112,7 +112,7 @@ public class Fornecedor {
            
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql);
-           
+     
            pStatement.setString(1,fornecedor.getNome());
            pStatement.setString(2,fornecedor.getEmail());
            pStatement.setString(3,fornecedor.getTelefone());
@@ -122,13 +122,10 @@ public class Fornecedor {
            
            boolean fornecedoresUpdate = pStatement.execute();
            
-           
-           System.out.println(fornecedoresUpdate);
-           
-           
-       if(fornecedoresUpdate){
+
+   
             return fornecedor;
-       }
+       
            
   
            

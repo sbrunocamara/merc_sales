@@ -61,8 +61,7 @@ public class FornecedorController {
     public  FornecedorClasse update(FornecedorClasse fornecedor){
         
           Fornecedor fornecedorModel =  new Fornecedor();
-          
-  
+            
           
           try{
               
