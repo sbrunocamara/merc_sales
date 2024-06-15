@@ -38,28 +38,28 @@
                       <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="userStatusAddLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="fornecedorCnpjEditLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="forncedorCnpjAdd" min="-2" pref="350" max="-2" attributes="0"/>
+                              <Component id="fornecedorCnpjEdit" min="-2" pref="350" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="userEmailAddLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="userPassAddLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="userNameAddLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fornecedorEmailAddLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fornecedorTelefofoneEditLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fornecedorNameAddLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="fornecedorTelefoneAdd" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="fornecedorNameAdd" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <Component id="fornecedorEmailAdd" min="-2" pref="350" max="-2" attributes="0"/>
+                                  <Component id="fornecedorTelefoneEdit" min="-2" pref="350" max="-2" attributes="0"/>
+                                  <Component id="fornecedorNameEdit" min="-2" pref="350" max="-2" attributes="0"/>
+                                  <Component id="fornecedorEmailEdit" min="-2" pref="350" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="363" max="-2" attributes="0"/>
-                      <Component id="userAddSave" min="-2" max="-2" attributes="0"/>
+                      <Component id="fornecedorEditSave" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="222" max="32767" attributes="0"/>
@@ -73,26 +73,26 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fornecedorNameAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="userNameAddLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorNameEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorNameAddLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="userEmailAddLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fornecedorEmailAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorEmailAddLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorEmailEdit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="userPassAddLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="fornecedorTelefoneAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorTelefofoneEditLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="fornecedorTelefoneEdit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="userStatusAddLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="forncedorCnpjAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorCnpjEditLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedorCnpjEdit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-              <Component id="userAddSave" min="-2" max="-2" attributes="0"/>
+              <Component id="fornecedorEditSave" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="99" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -108,12 +108,12 @@
           <Font name="Segoe UI" size="36" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/assets/add.png"/>
+          <Image iconType="3" name="/assets/editar.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Novo Fornecedor"/>
+        <Property name="text" type="java.lang.String" value="Alterar Fornecedor"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="userNameAddLabel">
+    <Component class="javax.swing.JLabel" name="fornecedorNameAddLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
@@ -121,15 +121,15 @@
         <Property name="text" type="java.lang.String" value="Nome:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="fornecedorNameAdd">
+    <Component class="javax.swing.JFormattedTextField" name="fornecedorNameEdit">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorNameAddActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorNameEditActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="userPassAddLabel">
+    <Component class="javax.swing.JLabel" name="fornecedorTelefofoneEditLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
@@ -137,7 +137,7 @@
         <Property name="text" type="java.lang.String" value="Telefone:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="userStatusAddLabel">
+    <Component class="javax.swing.JLabel" name="fornecedorCnpjEditLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
@@ -145,7 +145,7 @@
         <Property name="text" type="java.lang.String" value="CNPJ:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="userEmailAddLabel">
+    <Component class="javax.swing.JLabel" name="fornecedorEmailAddLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
@@ -153,36 +153,36 @@
         <Property name="text" type="java.lang.String" value="Email:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="fornecedorEmailAdd">
+    <Component class="javax.swing.JFormattedTextField" name="fornecedorEmailEdit">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorEmailAddActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorEmailEditActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="forncedorCnpjAdd">
+    <Component class="javax.swing.JFormattedTextField" name="fornecedorCnpjEdit">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="forncedorCnpjAddActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorCnpjEditActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="userAddSave">
+    <Component class="javax.swing.JButton" name="fornecedorEditSave">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userAddSaveActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorEditSaveActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="fornecedorTelefoneAdd">
+    <Component class="javax.swing.JFormattedTextField" name="fornecedorTelefoneEdit">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorTelefoneAddActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fornecedorTelefoneEditActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

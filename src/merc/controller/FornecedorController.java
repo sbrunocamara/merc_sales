@@ -56,6 +56,30 @@ public class FornecedorController {
         
         
     }
+    
+        
+    public  FornecedorClasse update(FornecedorClasse fornecedor){
+        
+          Fornecedor fornecedorModel =  new Fornecedor();
+          
+  
+          
+          try{
+              
+            FornecedorClasse update = fornecedorModel.update(fornecedor);
+             
+        
+            return update;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return fornecedor;
+        
+        
+    }
 
     
 }

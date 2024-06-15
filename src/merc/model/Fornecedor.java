@@ -100,5 +100,54 @@ public class Fornecedor {
        return fornecedores;
         
     }
+    
+        public FornecedorClasse update(FornecedorClasse fornecedor){
+        
+      String sql = "UPDATE fornecedor SET nome = ?, email = ?, telefone = ?, cnpj = ? WHERE fornecedor.id = ?";
+        
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+              
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+           
+           pStatement.setString(1,fornecedor.getNome());
+           pStatement.setString(2,fornecedor.getEmail());
+           pStatement.setString(3,fornecedor.getTelefone());
+           pStatement.setString(4,fornecedor.getCnpj());
+           pStatement.setInt(5,fornecedor.getId());
+           
+           
+           boolean fornecedoresUpdate = pStatement.execute();
+           
+           
+           System.out.println(fornecedoresUpdate);
+           
+           
+       if(fornecedoresUpdate){
+            return fornecedor;
+       }
+           
+  
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+       
+        FornecedorClasse returnFornecedor =  new FornecedorClasse();
+        
+        return returnFornecedor;
+        
+        
+    }
         
 }

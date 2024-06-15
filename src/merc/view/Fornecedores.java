@@ -51,6 +51,7 @@ public class Fornecedores extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFornecedores = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
@@ -106,6 +107,11 @@ public class Fornecedores extends javax.swing.JFrame {
             }
         });
         jTableFornecedores.setToolTipText("");
+        jTableFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFornecedoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableFornecedores);
 
         javax.swing.GroupLayout jPanelFornecedoresLayout = new javax.swing.GroupLayout(jPanelFornecedores);
@@ -136,12 +142,25 @@ public class Fornecedores extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/editar.png"))); // NOI18N
+        jButton2.setText("Editar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,6 +170,8 @@ public class Fornecedores extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
@@ -166,7 +187,9 @@ public class Fornecedores extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -196,6 +219,44 @@ public class Fornecedores extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
+
+    private void jTableFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFornecedoresMouseClicked
+        // TODO add your handling code here:
+//        System.out.println(jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0));
+    }//GEN-LAST:event_jTableFornecedoresMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        
+
+        
+   
+        
+        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
+        String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
+        String email = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
+        String cnpj = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
+        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
+        
+       FornecedorClasse fornecedor = new FornecedorClasse();
+       fornecedor.setId(id);
+       fornecedor.setNome(nome);
+       fornecedor.setEmail(email);
+       fornecedor.setCnpj(cnpj);
+       fornecedor.setTelefone(telefone);
+       
+        
+        
+        this.dispose();
+        FornecedoresEdit telaFornecedorEdit = new FornecedoresEdit(fornecedor);
+        telaFornecedorEdit.setVisible(true);
+        
+                System.out.println();
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -267,6 +328,7 @@ public class Fornecedores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFornecedores;
