@@ -9,5 +9,7 @@ package merc.Classes;
  * @author bsbru
  */
 public class ClienteClasse {
+
+
     
 }

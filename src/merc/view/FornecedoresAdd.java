@@ -163,6 +163,7 @@ public class FornecedoresAdd extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void fornecedorNameAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorNameAddActionPerformed

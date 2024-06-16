@@ -5,7 +5,9 @@
 package merc.view;
 
 import java.util.ArrayList;
+import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
+import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
 
 /**
@@ -33,7 +35,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuFornecedores = new javax.swing.JMenu();
         jMenuPessoas = new javax.swing.JMenu();
-        jMenuCidades = new javax.swing.JMenu();
+        jMenuEnderecos = new javax.swing.JMenu();
         jMenuItems = new javax.swing.JMenu();
         jMenuFinanceiro = new javax.swing.JMenu();
 
@@ -73,11 +75,16 @@ public class Principal extends javax.swing.JFrame {
         jMenuPessoas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jMenuBarPrincipal.add(jMenuPessoas);
 
-        jMenuCidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/endereco.png"))); // NOI18N
-        jMenuCidades.setText("Endereços");
-        jMenuCidades.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenuCidades.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jMenuBarPrincipal.add(jMenuCidades);
+        jMenuEnderecos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/endereco.png"))); // NOI18N
+        jMenuEnderecos.setText("Endereços");
+        jMenuEnderecos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuEnderecos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuEnderecos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuEnderecosMouseClicked(evt);
+            }
+        });
+        jMenuBarPrincipal.add(jMenuEnderecos);
 
         jMenuItems.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/items.png"))); // NOI18N
         jMenuItems.setText("Pedidos");
@@ -129,6 +136,18 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuFornecedoresMouseDragged
 
+    private void jMenuEnderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEnderecosMouseClicked
+        // TODO add your handling code here:
+        EnderecoController  enderecoController = new EnderecoController();
+        ArrayList<EnderecoClasse> carregaEnderecos = enderecoController.select();
+        
+
+        
+        
+        Enderecos telaEnderecos = new Enderecos(carregaEnderecos);
+        telaEnderecos.setVisible(true);
+    }//GEN-LAST:event_jMenuEnderecosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -166,7 +185,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarPrincipal;
-    private javax.swing.JMenu jMenuCidades;
+    private javax.swing.JMenu jMenuEnderecos;
     private javax.swing.JMenu jMenuFinanceiro;
     private javax.swing.JMenu jMenuFornecedores;
     private javax.swing.JMenu jMenuItems;
