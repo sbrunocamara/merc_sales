@@ -17,7 +17,7 @@ import merc.database.ConnectionDB;
  *
  * @author bsbru
  */
-public class ClienteEndereco {
+public class EnderecoCliente {
     
          public boolean insert(EnderecoClienteClasse enderecoCliente){
         
@@ -100,9 +100,9 @@ public class ClienteEndereco {
         
     }
     
-        public EnderecoClasse update(EnderecoClienteClasse enderecoCliente){
+        public EnderecoClienteClasse update(EnderecoClienteClasse enderecoCliente){
         
-      String sql = "UPDATE endereco SET descricao = ?, cep = ? WHERE endereco.id = ?";
+      String sql = "UPDATE endereco_cliente SET endereco_id = ?, cliente_id = ? WHERE endereco_cliente.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -112,9 +112,9 @@ public class ClienteEndereco {
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql);
      
-           pStatement.setString(1,endereco.getDescricao());
-           pStatement.setString(2,endereco.getCep());
-           pStatement.setInt(3,endereco.getId());
+           pStatement.setInt(1,enderecoCliente.getEndereco_id());
+           pStatement.setInt(2,enderecoCliente.getCliente_id());
+           pStatement.setInt(3,enderecoCliente.getId());
            
 
            
@@ -123,7 +123,7 @@ public class ClienteEndereco {
            
 
    
-            return endereco;
+            return enderecoCliente;
        
            
   
@@ -139,7 +139,7 @@ public class ClienteEndereco {
        }
        }
        
-        EnderecoClasse returnEndereco =  new EnderecoClasse();
+        EnderecoClienteClasse returnEndereco =  new EnderecoClienteClasse();
         
         return returnEndereco;
         
@@ -148,7 +148,7 @@ public class ClienteEndereco {
         
          public boolean remove(EnderecoClienteClasse enderecoCliente){
         
-      String sql = "DELETE FROM endereco WHERE endereco.id = ?";
+      String sql = "DELETE FROM endereco_cliente WHERE endereco_cliente.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -159,7 +159,7 @@ public class ClienteEndereco {
            pStatement = connection.prepareStatement(sql);
      
         
-           pStatement.setInt(1,endereco.getId());
+           pStatement.setInt(1,enderecoCliente.getId());
            
            
            boolean enderecoDelete = pStatement.execute();

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import merc.Classes.EnderecoClasse;
 import merc.Classes.EnderecoClienteClasse;
 import merc.model.Endereco;
+import merc.model.EnderecoCliente;
 
 
 /**
@@ -42,17 +43,17 @@ public class EnderecoClienteController {
           ArrayList<EnderecoClienteClasse> enderecosCliente = null;
           
           try{
-             EnderecoCliente = enderecoClienteModel.select();
+             enderecosCliente = enderecoClienteModel.select();
              
         
-            return EnderecoCliente;
+            return enderecosCliente;
         
              
           }catch(Exception e){
 
           }
           
-         return EnderecoCliente;
+         return enderecosCliente;
         
         
     }
@@ -65,7 +66,7 @@ public class EnderecoClienteController {
           
           try{
               
-            EnderecoClienteClasse update = enderecoClienteModel.update(endereco);
+            EnderecoClienteClasse update = enderecoClienteModel.update(enderecoCliente);
              
         
             return update;
