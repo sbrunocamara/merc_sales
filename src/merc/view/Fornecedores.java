@@ -5,8 +5,10 @@
 package merc.view;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import merc.Classes.FornecedorClasse;
+import merc.controller.FornecedorController;
 
 
 
@@ -51,7 +53,8 @@ public class Fornecedores extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFornecedores = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        FornecedoresButtonEdit = new javax.swing.JButton();
+        fornecedoresButtonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
@@ -142,16 +145,29 @@ public class Fornecedores extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/editar.png"))); // NOI18N
-        jButton2.setText("Editar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        FornecedoresButtonEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/editar.png"))); // NOI18N
+        FornecedoresButtonEdit.setText("Editar");
+        FornecedoresButtonEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                FornecedoresButtonEditMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        FornecedoresButtonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                FornecedoresButtonEditActionPerformed(evt);
+            }
+        });
+
+        fornecedoresButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/remover.png"))); // NOI18N
+        fornecedoresButtonDelete.setText("Excluir");
+        fornecedoresButtonDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fornecedoresButtonDeleteMouseClicked(evt);
+            }
+        });
+        fornecedoresButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedoresButtonDeleteActionPerformed(evt);
             }
         });
 
@@ -164,15 +180,18 @@ public class Fornecedores extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2)
+                                .addComponent(jButton1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))))
+                                .addComponent(FornecedoresButtonEdit)
+                                .addGap(18, 18, 18)
+                                .addComponent(fornecedoresButtonDelete))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -188,8 +207,9 @@ public class Fornecedores extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
+                            .addComponent(FornecedoresButtonEdit)
+                            .addComponent(fornecedoresButtonDelete)
+                            .addComponent(jButton1))))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -225,16 +245,18 @@ public class Fornecedores extends javax.swing.JFrame {
 //        System.out.println(jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0));
     }//GEN-LAST:event_jTableFornecedoresMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void FornecedoresButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_FornecedoresButtonEditActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void FornecedoresButtonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditMouseClicked
         // TODO add your handling code here:
         
-
         
-   
+        if(jTableFornecedores.getSelectedRow() < 0){
+            return;
+            
+        }
         
         Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
         String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
@@ -255,8 +277,45 @@ public class Fornecedores extends javax.swing.JFrame {
         FornecedoresEdit telaFornecedorEdit = new FornecedoresEdit(fornecedor);
         telaFornecedorEdit.setVisible(true);
         
-                System.out.println();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_FornecedoresButtonEditMouseClicked
+
+    private void fornecedoresButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedoresButtonDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fornecedoresButtonDeleteActionPerformed
+
+    private void fornecedoresButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fornecedoresButtonDeleteMouseClicked
+        // TODO add your handling code here:
+           if(jTableFornecedores.getSelectedRow() < 0){
+            return;
+            
+        }
+        
+        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
+
+        
+       FornecedorClasse fornecedor = new FornecedorClasse();
+       fornecedor.setId(id);
+       
+       int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
+       
+       if(dialogResult == 0) {
+           FornecedorController fornecedorController = new FornecedorController();
+           boolean remove = fornecedorController.remove(fornecedor);
+           
+           if(remove == true){
+                JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+                  this.dispose();
+                  this.carregaTela();
+           }else{
+               JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
+           }
+           
+             } else {
+               
+                         } 
+       
+    }//GEN-LAST:event_fornecedoresButtonDeleteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -324,11 +383,23 @@ public class Fornecedores extends javax.swing.JFrame {
                 return true;
     }
     
+    public void carregaTela(){
+         FornecedorController  fornecedoresController = new FornecedorController();
+        ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
+        
+
+        
+        
+        Fornecedores telaFornecedores = new Fornecedores(carregaFornecedores);
+        telaFornecedores.setVisible(true);
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton FornecedoresButtonEdit;
+    private javax.swing.JButton fornecedoresButtonDelete;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFornecedores;

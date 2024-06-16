@@ -147,4 +147,51 @@ public class Fornecedor {
         
     }
         
+         public boolean remove(FornecedorClasse fornecedor){
+        
+      String sql = "DELETE FROM fornecedor WHERE fornecedor.id = ?";
+        
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+              
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+     
+        
+           pStatement.setInt(1,fornecedor.getId());
+           
+           
+           boolean fornecedoresDelete = pStatement.execute();
+           
+           System.out.println(fornecedoresDelete);
+           
+
+         if(fornecedoresDelete == false){
+          return true;
+                  } 
+       
+           
+  
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+       
+        FornecedorClasse returnFornecedor =  new FornecedorClasse();
+        
+        return false;
+        
+        
+    }
+        
+        
 }

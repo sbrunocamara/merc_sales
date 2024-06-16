@@ -79,6 +79,22 @@ public class FornecedorController {
         
         
     }
+    
+    public boolean remove(FornecedorClasse fornecedor){
+        
+         Fornecedor fornecedorModel =  new Fornecedor();
+ 
+  
+              
+            boolean remove = fornecedorModel.remove(fornecedor);
+             
+        
+            return remove;
+        
+            
+          
+        
+    }
 
     
 }
