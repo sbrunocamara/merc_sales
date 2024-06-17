@@ -144,14 +144,14 @@ public class EnderecosAdd extends javax.swing.JFrame {
             
             EnderecoController enderecoController = new EnderecoController();
             
-            boolean insert = enderecoController.newEndereco(enderecoDescricaoAdd.getText(),enderecoCepAdd.getText());
+            Integer insert = enderecoController.newEndereco(enderecoDescricaoAdd.getText(),enderecoCepAdd.getText());
       
             
-            if(insert == false){
+            if(insert <=0){
                  JOptionPane.showMessageDialog(null, "Erro ao inserir os dados!");
             }
             
-            if(insert == true){
+            if(insert > 0){
              JOptionPane.showMessageDialog(null, "Endereço inserido com sucesso!");
              this.limpaTela(evt);
              

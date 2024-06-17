@@ -18,7 +18,7 @@ import merc.database.ConnectionDB;
  */
 public class Endereco {
     
-     public boolean insert(EnderecoClasse endereco){
+     public Integer insert(EnderecoClasse endereco){
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -26,14 +26,22 @@ public class Endereco {
        
        try{
            connection = new ConnectionDB().getConnection();
-           pStatement = connection.prepareStatement(sql);
+           pStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
            pStatement.setString(1,endereco.getDescricao());
            pStatement.setString(2,endereco.getCep());
+  
 
+          
            
           boolean insert = pStatement.execute();
-  
-  
+          int id;
+          
+        ResultSet rs = pStatement.getGeneratedKeys(); 
+        if (rs.next()) { 
+            id = rs.getInt(1); 
+          return id;
+        } 
+      
               
           
        }catch(SQLException e){
@@ -48,7 +56,7 @@ public class Endereco {
        }
        }
        
-       return true;
+       return 0;
        
        
     }

@@ -18,7 +18,7 @@ import merc.database.ConnectionDB;
  */
 public class Cliente {
     
-    public boolean insert(ClienteClasse cliente){
+    public Integer insert(ClienteClasse cliente){
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -26,13 +26,20 @@ public class Cliente {
        
        try{
            connection = new ConnectionDB().getConnection();
-           pStatement = connection.prepareStatement(sql);
+            pStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
            pStatement.setString(1,cliente.getNome());
            pStatement.setString(2,cliente.getE_mail());
            pStatement.setString(3,cliente.getTelefone());
            pStatement.setString(4,cliente.getCpf());
            
-          boolean insert = pStatement.execute();
+         boolean insert = pStatement.execute();
+          int id;
+          
+        ResultSet rs = pStatement.getGeneratedKeys(); 
+        if (rs.next()) { 
+            id = rs.getInt(1); 
+          return id;
+        } 
   
   
               
@@ -49,14 +56,16 @@ public class Cliente {
        }
        }
        
-       return true;
+       return 0;
        
        
     }
     
     public ArrayList<ClienteClasse> select(){
         
-        String sql = "select id,nome,email,telefone,email from cliente";
+        String sql = "select cliente.id,cliente.nome,cliente.e_mail,cliente.telefone,cliente.cpf,endereco.descricao as endereco,endereco.cep as cep,endereco.id as endereco_id from cliente\n" +
+"inner join cliente_endereco ON cliente.id = cliente_endereco.cliente_id\n" +
+"inner join endereco on endereco.id = cliente_endereco.endereco_id";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -75,10 +84,13 @@ public class Cliente {
                while(clientesSelect.next()){
                    ClienteClasse clienteObjeto = new ClienteClasse();
                    clienteObjeto.setNome(clientesSelect.getString("nome"));
-                   clienteObjeto.setE_mail(clientesSelect.getString("email"));
+                   clienteObjeto.setE_mail(clientesSelect.getString("e_mail"));
                    clienteObjeto.setTelefone(clientesSelect.getString("telefone"));
                    clienteObjeto.setId(clientesSelect.getInt("id"));
                    clienteObjeto.setCpf(clientesSelect.getString("cpf"));
+                   clienteObjeto.setEndereco(clientesSelect.getString("endereco"));
+                   clienteObjeto.setCep(clientesSelect.getString("cep"));
+                   clienteObjeto.setEndereco_id(clientesSelect.getInt("endereco_id"));
                    clientes.add(clienteObjeto);
                } 
            }
@@ -95,13 +107,13 @@ public class Cliente {
        }
        }
           
-       return fornecedores;
+       return clientes;
         
     }
     
-        public FornecedorClasse update(FornecedorClasse fornecedor){
+        public ClienteClasse update(ClienteClasse cliente){
         
-      String sql = "UPDATE fornecedor SET nome = ?, email = ?, telefone = ?, cnpj = ? WHERE fornecedor.id = ?";
+      String sql = "UPDATE cliente SET nome = ?, e_mail = ?, telefone = ?, cpf = ? WHERE cliente.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -111,22 +123,20 @@ public class Cliente {
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql);
      
-           pStatement.setString(1,fornecedor.getNome());
-           pStatement.setString(2,fornecedor.getEmail());
-           pStatement.setString(3,fornecedor.getTelefone());
-           pStatement.setString(4,fornecedor.getCnpj());
-           pStatement.setInt(5,fornecedor.getId());
-           
+           pStatement.setString(1,cliente.getNome());
+           pStatement.setString(2,cliente.getE_mail());
+           pStatement.setString(3,cliente.getTelefone());
+           pStatement.setString(4,cliente.getCpf());
+           pStatement.setInt(5,cliente.getId());
+              
            
            boolean fornecedoresUpdate = pStatement.execute();
            
 
    
-            return fornecedor;
+            return cliente;
        
-           
-  
-           
+             
        }catch(SQLException e){
             e.printStackTrace();
        }finally{
@@ -138,16 +148,16 @@ public class Cliente {
        }
        }
        
-        FornecedorClasse returnFornecedor =  new FornecedorClasse();
+        ClienteClasse returnCliente =  new ClienteClasse();
         
-        return returnFornecedor;
+        return returnCliente;
         
         
     }
         
-         public boolean remove(FornecedorClasse fornecedor){
+         public boolean remove(ClienteClasse cliente){
         
-      String sql = "DELETE FROM fornecedor WHERE fornecedor.id = ?";
+      String sql = "DELETE FROM cliente WHERE cliente.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -158,15 +168,13 @@ public class Cliente {
            pStatement = connection.prepareStatement(sql);
      
         
-           pStatement.setInt(1,fornecedor.getId());
+           pStatement.setInt(1,cliente.getId());
            
            
-           boolean fornecedoresDelete = pStatement.execute();
-           
-           System.out.println(fornecedoresDelete);
+           boolean clienteDelete = pStatement.execute();
            
 
-         if(fornecedoresDelete == false){
+         if(clienteDelete == false){
           return true;
                   } 
        
@@ -184,7 +192,7 @@ public class Cliente {
        }
        }
        
-        FornecedorClasse returnFornecedor =  new FornecedorClasse();
+        ClienteClasse returnCliente =  new ClienteClasse();
         
         return false;
         

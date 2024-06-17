@@ -5,8 +5,10 @@
 package merc.view;
 
 import java.util.ArrayList;
+import merc.Classes.ClienteClasse;
 import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
+import merc.controller.ClienteController;
 import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
 
@@ -34,7 +36,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuFornecedores = new javax.swing.JMenu();
-        jMenuPessoas = new javax.swing.JMenu();
+        jMenuClientes = new javax.swing.JMenu();
         jMenuEnderecos = new javax.swing.JMenu();
         jMenuItems = new javax.swing.JMenu();
         jMenuFinanceiro = new javax.swing.JMenu();
@@ -68,12 +70,17 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuBarPrincipal.add(jMenuFornecedores);
 
-        jMenuPessoas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pessoas.png"))); // NOI18N
-        jMenuPessoas.setText("Clientes");
-        jMenuPessoas.setToolTipText("");
-        jMenuPessoas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenuPessoas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jMenuBarPrincipal.add(jMenuPessoas);
+        jMenuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pessoas.png"))); // NOI18N
+        jMenuClientes.setText("Clientes");
+        jMenuClientes.setToolTipText("");
+        jMenuClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuClientesMouseClicked(evt);
+            }
+        });
+        jMenuBarPrincipal.add(jMenuClientes);
 
         jMenuEnderecos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/endereco.png"))); // NOI18N
         jMenuEnderecos.setText("Endereços");
@@ -148,6 +155,19 @@ public class Principal extends javax.swing.JFrame {
         telaEnderecos.setVisible(true);
     }//GEN-LAST:event_jMenuEnderecosMouseClicked
 
+    private void jMenuClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClientesMouseClicked
+        // TODO add your handling code here:
+        
+         ClienteController  clienteController = new ClienteController();
+        ArrayList<ClienteClasse> carregaClientes = clienteController.select();
+        
+
+        
+        
+        Clientes telaClientes = new Clientes(carregaClientes);
+        telaClientes.setVisible(true);
+    }//GEN-LAST:event_jMenuClientesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -185,10 +205,10 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarPrincipal;
+    private javax.swing.JMenu jMenuClientes;
     private javax.swing.JMenu jMenuEnderecos;
     private javax.swing.JMenu jMenuFinanceiro;
     private javax.swing.JMenu jMenuFornecedores;
     private javax.swing.JMenu jMenuItems;
-    private javax.swing.JMenu jMenuPessoas;
     // End of variables declaration//GEN-END:variables
 }

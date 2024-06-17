@@ -15,7 +15,7 @@ import merc.model.Endereco;
  */
 public class EnderecoController {
     
-    public boolean newEndereco(String descricao, String cep){
+    public Integer newEndereco(String descricao, String cep){
         
 
         
@@ -27,10 +27,12 @@ public class EnderecoController {
         
         Endereco enderecoModel =  new Endereco();
         
-        if(enderecoModel.insert(endereco)){
-            return true;
+        Integer insert = enderecoModel.insert(endereco);
+        
+        if(insert > 0){
+            return insert;
         }else{
-            return false;
+            return 0;
         }        
         
     }
@@ -57,7 +59,7 @@ public class EnderecoController {
     }
     
         
-    public  EnderecoClasse update(EnderecoClasse endereco){
+    public EnderecoClasse update(EnderecoClasse endereco){
         
           Endereco enderecoModel =  new Endereco();
             

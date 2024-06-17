@@ -65,6 +65,33 @@ public class ClienteClasse {
     private String e_mail;
     private String cpf;
     private String telefone;
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+    private String endereco;
+    private String cep;
+
+    public Integer getEndereco_id() {
+        return endereco_id;
+    }
+
+    public void setEndereco_id(Integer endereco_id) {
+        this.endereco_id = endereco_id;
+    }
+    private Integer endereco_id;
     private ArrayList<EnderecoClienteClasse> enderecos;
 
 

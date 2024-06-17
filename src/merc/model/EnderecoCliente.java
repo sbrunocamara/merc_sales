@@ -102,7 +102,7 @@ public class EnderecoCliente {
     
         public EnderecoClienteClasse update(EnderecoClienteClasse enderecoCliente){
         
-      String sql = "UPDATE endereco_cliente SET endereco_id = ?, cliente_id = ? WHERE endereco_cliente.id = ?";
+      String sql = "UPDATE endereco_cliente SET endereco_id = ?, cliente_id = ? WHERE cliente_endereco.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -148,7 +148,7 @@ public class EnderecoCliente {
         
          public boolean remove(EnderecoClienteClasse enderecoCliente){
         
-      String sql = "DELETE FROM endereco_cliente WHERE endereco_cliente.id = ?";
+      String sql = "DELETE FROM cliente_endereco WHERE cliente_endereco.endereco_id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -188,6 +188,8 @@ public class EnderecoCliente {
         
         
     }
+         
+        
     
     
 }
