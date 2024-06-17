@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import merc.Classes.ClienteClasse;
 import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
+import merc.Classes.ProdutoClasse;
 import merc.controller.ClienteController;
 import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
+import merc.controller.ProdutoController;
 
 /**
  *
@@ -110,6 +112,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuProdutos.setText("Produtos");
         jMenuProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuProdutosMouseClicked(evt);
+            }
+        });
         jMenuBarPrincipal.add(jMenuProdutos);
 
         setJMenuBar(jMenuBarPrincipal);
@@ -174,6 +181,19 @@ public class Principal extends javax.swing.JFrame {
         Clientes telaClientes = new Clientes(carregaClientes);
         telaClientes.setVisible(true);
     }//GEN-LAST:event_jMenuClientesMouseClicked
+
+    private void jMenuProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuProdutosMouseClicked
+        // TODO add your handling code here:
+        ProdutoController  produtoController = new ProdutoController();
+        ArrayList<ProdutoClasse> carregaProdutos = produtoController.select();
+        
+
+
+        
+        
+        Produtos telaProdutos = new Produtos(carregaProdutos);
+        telaProdutos.setVisible(true);
+    }//GEN-LAST:event_jMenuProdutosMouseClicked
 
     /**
      * @param args the command line arguments

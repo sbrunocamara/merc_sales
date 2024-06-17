@@ -20,18 +20,18 @@ import merc.database.ConnectionDB;
  */
 public class Produto {
     
-     public Integer insert(ProdutoClasse pedido){
+     public Integer insert(ProdutoClasse produto){
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
-       String sql = "insert into pedido (descricao,valor_unitario,qtde_estoque) values (?,?,?)";
+       String sql = "insert into produto (descricao,valor_unitario,qtde_estoque) values (?,?,?)";
        
        try{
            connection = new ConnectionDB().getConnection();
             pStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-           pStatement.setString(1,pedido.getDescricao());
-           pStatement.setInt(1,pedido.getValor_unitario());
-           pStatement.setInt(3,pedido.getQtde_estoque());
+           pStatement.setString(1,produto.getDescricao());
+           pStatement.setInt(2,produto.getValor_unitario());
+           pStatement.setInt(3,produto.getQtde_estoque());
            
          boolean insert = pStatement.execute();
           int id;
@@ -64,7 +64,7 @@ public class Produto {
     
     public ArrayList<ProdutoClasse> select(){
         
-        String sql = "select * from produto";
+        String sql = "select id,descricao,valor_unitario,qtde_estoque from produto";
        PreparedStatement pStatement =  null;
        Connection connection = null;
        
@@ -76,7 +76,7 @@ public class Produto {
            pStatement = connection.prepareStatement(sql);
            ResultSet produtosSelect = pStatement.executeQuery(sql);
            
-           if(produtos != null){
+           if(produtosSelect != null){
                produtos =  new ArrayList<>();
                
                while(produtosSelect.next()){
@@ -107,6 +107,7 @@ public class Produto {
     }
     
         public ProdutoClasse update(ProdutoClasse produto){
+            
 
       String sql = "UPDATE produto SET descricao = ?, valor_unitario = ?, qtde_estoque = ? WHERE produto.id = ?";
         

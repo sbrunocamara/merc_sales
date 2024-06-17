@@ -7,8 +7,8 @@ package merc.view;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import merc.Classes.FornecedorClasse;
-import merc.controller.FornecedorController;
+import merc.Classes.ProdutoClasse;
+import merc.controller.ProdutoController;
 
 
 
@@ -18,11 +18,11 @@ import merc.controller.FornecedorController;
  */
 public class Produtos extends javax.swing.JFrame {
 
-    public  ArrayList<FornecedorClasse> fornecedores;
+    public  ArrayList<ProdutoClasse> produtos;
     /**
      * Creates new form Fornecedores
      */
-    public Produtos(ArrayList<FornecedorClasse> fornecedores) {
+    public Produtos(ArrayList<ProdutoClasse> produtos) {
         
         
         this.dispose();
@@ -31,7 +31,7 @@ public class Produtos extends javax.swing.JFrame {
         initComponents();
        
         
-        this.fornecedores = fornecedores;
+        this.produtos = produtos;
         
         this.preencheTabela();
         
@@ -226,8 +226,8 @@ public class Produtos extends javax.swing.JFrame {
     private void produtosButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_produtosButtonAddMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        FornecedoresAdd telaFornecedorAdd = new FornecedoresAdd();
-        telaFornecedorAdd.setVisible(true);
+        ProdutosAdd telaProdutosAdd = new ProdutosAdd();
+        telaProdutosAdd.setVisible(true);
     }//GEN-LAST:event_produtosButtonAddMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -259,23 +259,22 @@ public class Produtos extends javax.swing.JFrame {
         }
         
         Integer id = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 0);
-        String nome = (String)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 1);
-        String email = (String)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 2);
-        String cnpj = (String)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 3);
-        String telefone = (String)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 3);
+        String descricao = (String)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 1);
+        Integer valor = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 2);
+        Integer quantidade = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 3);
         
-       FornecedorClasse fornecedor = new FornecedorClasse();
-       fornecedor.setId(id);
-       fornecedor.setNome(nome);
-       fornecedor.setEmail(email);
-       fornecedor.setCnpj(cnpj);
-       fornecedor.setTelefone(telefone);
-       
+       ProdutoClasse produto = new ProdutoClasse();
+       produto.setDescricao(descricao);
+       produto.setValor_unitario(valor);
+       produto.setQtde_estoque(quantidade);
+       produto.setId(id);
+    
+
         
         
         this.dispose();
-        FornecedoresEdit telaFornecedorEdit = new FornecedoresEdit(fornecedor);
-        telaFornecedorEdit.setVisible(true);
+        ProdutosEdit telaProdutoEdit = new ProdutosEdit(produto);
+        telaProdutoEdit.setVisible(true);
         
     }//GEN-LAST:event_ProdutosButtonEditMouseClicked
 
@@ -293,15 +292,15 @@ public class Produtos extends javax.swing.JFrame {
         Integer id = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 0);
 
         
-       FornecedorClasse fornecedor = new FornecedorClasse();
-       fornecedor.setId(id);
+       ProdutoClasse produto = new ProdutoClasse();
+       produto.setId(id);
        
        int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
        
        if(dialogResult == 0) {
-           FornecedorController fornecedorController = new FornecedorController();
-           boolean remove = fornecedorController.remove(fornecedor);
+           ProdutoController produtoController = new ProdutoController();
+           boolean remove = produtoController.remove(produto);
            
            if(remove == true){
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
@@ -358,7 +357,7 @@ public class Produtos extends javax.swing.JFrame {
      
             
                 
-                new Produtos(fornecedores).setVisible(true);
+                new Produtos(produtos).setVisible(true);
 
             }
         });
@@ -369,13 +368,13 @@ public class Produtos extends javax.swing.JFrame {
     public boolean preencheTabela(){
             DefaultTableModel tableModel = (DefaultTableModel) jTableProdutos.getModel();
                 tableModel.setRowCount(0);
-                fornecedores.forEach((fornecedor)->{
+                produtos.forEach((produto)->{
+                    System.out.println(produto.getId());
                     tableModel.addRow(new Object[] {
-                        fornecedor.getId(),
-                        fornecedor.getNome(),
-                        fornecedor.getEmail(),
-                        fornecedor.getTelefone(),
-                        fornecedor.getCnpj()
+                        produto.getId(),
+                        produto.getDescricao(),
+                        produto.getValor_unitario(),
+                        produto.getQtde_estoque(),
                         
                     });
                 
@@ -386,14 +385,14 @@ public class Produtos extends javax.swing.JFrame {
     }
     
     public void carregaTela(){
-         FornecedorController  fornecedoresController = new FornecedorController();
-        ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
+         ProdutoController  produtoController = new ProdutoController();
+        ArrayList<ProdutoClasse> carregaProdtuos = produtoController.select();
         
 
         
         
-        Produtos telaFornecedores = new Produtos(carregaFornecedores);
-        telaFornecedores.setVisible(true);
+        Produtos telaProdutos = new Produtos(carregaProdtuos);
+        telaProdutos.setVisible(true);
     }
     
     

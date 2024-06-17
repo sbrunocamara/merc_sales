@@ -107,6 +107,56 @@ public class ItemCompra {
         
     }
     
+    public ArrayList<ItemCompraClasse> selectCompra(Integer compraId){
+        
+       String sql = "select * from item_compra where compra_id = ?";
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+       
+       ArrayList<ItemCompraClasse> itemsCompra = null;
+       
+     
+       
+       
+       
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+           pStatement.setInt(1,compraId);
+           ResultSet itemsCompraSelect = pStatement.executeQuery(sql);
+           
+           if(itemsCompraSelect != null){
+               itemsCompra =  new ArrayList<>();
+               
+               while(itemsCompraSelect.next()){
+                   ItemCompraClasse itemsCompraObjeto = new ItemCompraClasse();
+                   itemsCompraObjeto.setId(itemsCompraSelect.getInt("id"));
+                   itemsCompraObjeto.setCompra_id(itemsCompraSelect.getInt("compra_id"));
+                   itemsCompraObjeto.setProduto_id(itemsCompraSelect.getInt("produto_id"));
+                   itemsCompraObjeto.setQtde(itemsCompraSelect.getInt("qtde"));
+                   itemsCompraObjeto.setValor(itemsCompraSelect.getInt("valor"));
+            
+                   itemsCompra.add(itemsCompraObjeto);
+               } 
+           }
+           
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+          
+       return itemsCompra;
+        
+    }
+    
         public ItemCompraClasse update(ItemCompraClasse itemCompra){
         
       String sql = "UPDATE item_compra SET compra_id = ?, produto_id = ?, qtde = ?, valor = ? WHERE item_compra.id = ?";

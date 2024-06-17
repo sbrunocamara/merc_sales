@@ -108,6 +108,52 @@ public class ItemPedido {
         
     }
     
+       public ArrayList<ItemPedidoClasse> selectPedido(Integer pedidoId){
+        
+        String sql = "select * from item_pedido where pedido_id = ?";
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+       
+       ArrayList<ItemPedidoClasse> itemsPedido = null;
+       
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+             pStatement.setInt(1,pedidoId);
+           ResultSet itemsPedidoSelect = pStatement.executeQuery(sql);
+           
+           if(itemsPedidoSelect != null){
+               itemsPedido =  new ArrayList<>();
+               
+               while(itemsPedidoSelect.next()){
+                   ItemPedidoClasse itemsPedidoObjeto = new ItemPedidoClasse();
+                   itemsPedidoObjeto.setId(itemsPedidoSelect.getInt("id"));
+                   itemsPedidoObjeto.setPedido_id(itemsPedidoSelect.getInt("pedido_id"));
+                   itemsPedidoObjeto.setProduto_id(itemsPedidoSelect.getInt("produto_id"));
+                   itemsPedidoObjeto.setQtde(itemsPedidoSelect.getInt("qtde"));
+                   itemsPedidoObjeto.setValor_item(itemsPedidoSelect.getInt("valor_item"));
+            
+                   itemsPedido.add(itemsPedidoObjeto);
+               } 
+           }
+           
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+          
+       return itemsPedido;
+        
+    }
+    
         public ItemPedidoClasse update(ItemPedidoClasse itemPedido){
 
       String sql = "UPDATE item_pedido SET pedido_id = ?, produto_id = ?, qtde = ?, valor_item = ? WHERE item_pedido.id = ?";

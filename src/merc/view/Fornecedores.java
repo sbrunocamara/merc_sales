@@ -262,7 +262,7 @@ public class Fornecedores extends javax.swing.JFrame {
         String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
         String email = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
         String cnpj = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
-        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
+        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 4);
         
        FornecedorClasse fornecedor = new FornecedorClasse();
        fornecedor.setId(id);

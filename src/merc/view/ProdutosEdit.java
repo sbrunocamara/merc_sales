@@ -7,7 +7,9 @@ package merc.view;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import merc.Classes.FornecedorClasse;
+import merc.Classes.ProdutoClasse;
 import merc.controller.FornecedorController;
+import merc.controller.ProdutoController;
 
 /**
  *
@@ -16,20 +18,19 @@ import merc.controller.FornecedorController;
 public class ProdutosEdit extends javax.swing.JFrame {
     
     
-   public  FornecedorClasse fornecedores;
+   public  ProdutoClasse produtos;
 
     /**
      * Creates new form UsuariosAdd
      */
-    public ProdutosEdit(FornecedorClasse fornecedor) {
+    public ProdutosEdit(ProdutoClasse produto) {
         initComponents();
         
-        produtoDescricaoEdit.setText(fornecedor.getNome());
-        produtoValorEdit.setText(fornecedor.getEmail());
-        fornecedorCnpjEdit.setText(fornecedor.getCnpj());
-        produtoQuantidadeEdit.setText(fornecedor.getTelefone());
+        produtoDescricaoEdit.setText(produto.getDescricao());
+        produtoValorEdit.setText(Integer.toString(produto.getValor_unitario()));
+        produtoQuantidadeEdit.setText(Integer.toString(produto.getQtde_estoque()));
         
-        this.fornecedores = fornecedor;
+        this.produtos = produto;
     }
 
     /**
@@ -165,30 +166,30 @@ public class ProdutosEdit extends javax.swing.JFrame {
 
     private void produtoEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoEditSaveActionPerformed
         // TODO add your handling code here:
-       if(produtoDescricaoEdit.getText().isEmpty()|| produtoValorEdit.getText().isEmpty() ||fornecedorCnpjEdit.getText().isEmpty() || produtoQuantidadeEdit.getText().isEmpty()){
+       if(produtoDescricaoEdit.getText().isEmpty()|| produtoValorEdit.getText().isEmpty() || produtoQuantidadeEdit.getText().isEmpty()){
             
            JOptionPane.showMessageDialog(null, "Dados incompletos!");
            return;
             
         }
        
-        this.fornecedores.setNome(produtoDescricaoEdit.getText());
-        this.fornecedores.setEmail(produtoValorEdit.getText());
-        this.fornecedores.setCnpj(fornecedorCnpjEdit.getText());
-        this.fornecedores.setTelefone(produtoQuantidadeEdit.getText());
+        this.produtos.setDescricao(produtoDescricaoEdit.getText());
+        this.produtos.setValor_unitario(Integer.parseInt(produtoValorEdit.getText()));
+        this.produtos.setQtde_estoque(Integer.parseInt(produtoQuantidadeEdit.getText()));
+     
         
  
         try{
             
-            FornecedorController fornecedorController = new FornecedorController();
+           ProdutoController produtoController = new ProdutoController();
             
-            FornecedorClasse update = fornecedorController.update(this.fornecedores);
+            ProdutoClasse update = produtoController.update(this.produtos);
       
             
             
-            if(this.fornecedores == update){
-             JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
-             this.fornecedores = update;
+            if(this.produtos == update){
+             JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+             this.produtos = update;
              this.atualizaTela(evt);
             
             }
@@ -206,17 +207,15 @@ public class ProdutosEdit extends javax.swing.JFrame {
         
         produtoDescricaoEdit.setText("");
         produtoValorEdit.setText("");
-        fornecedorCnpjEdit.setText("");
         produtoQuantidadeEdit.setText("");
         
     }
     
     private void atualizaTela(java.awt.event.ActionEvent evt){
         
-        produtoDescricaoEdit.setText(this.fornecedores.getNome());
-        produtoValorEdit.setText(this.fornecedores.getEmail());
-        fornecedorCnpjEdit.setText(this.fornecedores.getCnpj());
-        produtoQuantidadeEdit.setText(this.fornecedores.getTelefone());
+        produtoDescricaoEdit.setText(this.produtos.getDescricao());
+        produtoValorEdit.setText(Integer.toString(this.produtos.getValor_unitario()));
+        produtoQuantidadeEdit.setText(Integer.toString(this.produtos.getQtde_estoque()));
         
         
     }
@@ -228,13 +227,13 @@ public class ProdutosEdit extends javax.swing.JFrame {
         this.dispose();
         
         
-        FornecedorController fornecedoresController = new FornecedorController();
-        ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
+        ProdutoController produtosController = new ProdutoController();
+        ArrayList<ProdutoClasse> carregaProdutos = produtosController.select();
 
 
 
-        Fornecedores telaFornecedor = new Fornecedores(carregaFornecedores);
-        telaFornecedor.setVisible(true);
+        Produtos telaProdutos = new Produtos(carregaProdutos);
+        telaProdutos.setVisible(true);
 
         
         
@@ -243,7 +242,7 @@ public class ProdutosEdit extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         this.dispose();
-        new Fornecedores.setVisible(true);
+        new Produtos.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
     private void produtoQuantidadeEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoQuantidadeEditActionPerformed

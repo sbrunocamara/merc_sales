@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/controller/EnderecoController.java</file>
             <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Principal.java</file>
-            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/FornecedoresAdd.java</file>
-            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/model/Fornecedor.java</file>
-            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/database/ConnectionDB.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/controller/ProdutoController.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Produtos.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/ProdutosEdit.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/model/ItemCompra.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/model/ItemPedido.java</file>
             <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Fornecedores.java</file>
-            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/controller/FornecedorController.java</file>
-            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/Classes/FornecedorClasse.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/EnderecosAdd.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/ProdutosAdd.java</file>
         </group>
     </open-files>
 </project-private>

@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
+import merc.Classes.ProdutoClasse;
 import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
+import merc.controller.ProdutoController;
 
 /**
  *
@@ -153,7 +155,7 @@ public class ProdutosAdd extends javax.swing.JFrame {
 
     private void produtoAddSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoAddSaveActionPerformed
         // TODO add your handling code here:
-       if(produtoDescricaoAdd.getText().isEmpty() || valorProdutoAdd.getText().isEmpty()){
+       if(produtoDescricaoAdd.getText().isEmpty() || valorProdutoAdd.getText().isEmpty() || quantidadeProdutoAdd.getText().isEmpty() ){
             
            JOptionPane.showMessageDialog(null, "Dados incompletos!");
            return;
@@ -161,9 +163,9 @@ public class ProdutosAdd extends javax.swing.JFrame {
         }
         try{
             
-            EnderecoController enderecoController = new EnderecoController();
+            ProdutoController produtoController = new ProdutoController();
             
-            Integer insert = enderecoController.newEndereco(produtoDescricaoAdd.getText(),valorProdutoAdd.getText());
+            Integer insert = produtoController.newProduto(produtoDescricaoAdd.getText(),Integer.parseInt(valorProdutoAdd.getText()),Integer.parseInt(quantidadeProdutoAdd.getText()));
       
             
             if(insert <=0){
@@ -171,7 +173,7 @@ public class ProdutosAdd extends javax.swing.JFrame {
             }
             
             if(insert > 0){
-             JOptionPane.showMessageDialog(null, "Endereço inserido com sucesso!");
+             JOptionPane.showMessageDialog(null, "Produto inserido com sucesso!");
              this.limpaTela(evt);
              
 
@@ -190,6 +192,7 @@ public class ProdutosAdd extends javax.swing.JFrame {
         
         produtoDescricaoAdd.setText("");
         valorProdutoAdd.setText("");
+        quantidadeProdutoAdd.setText("");
         
     }
     
@@ -200,13 +203,13 @@ public class ProdutosAdd extends javax.swing.JFrame {
         this.dispose();
         
         
-        EnderecoController enderecoController = new EnderecoController();
-        ArrayList<EnderecoClasse> carregaEnderecos = enderecoController.select();
+        ProdutoController produtoController = new ProdutoController();
+        ArrayList<ProdutoClasse> carregaProdutos = produtoController.select();
 
 
 
-        Enderecos enderecoFornecedor = new Enderecos(carregaEnderecos);
-        enderecoFornecedor.setVisible(true);
+        Produtos produtos = new Produtos(carregaProdutos);
+        produtos.setVisible(true);
 
         
         
@@ -215,7 +218,7 @@ public class ProdutosAdd extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         this.dispose();
-        new Enderecos.setVisible(true);
+        new Produtos.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
     private void valorProdutoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorProdutoAddActionPerformed
