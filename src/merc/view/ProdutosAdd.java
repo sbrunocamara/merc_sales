@@ -79,6 +79,7 @@ public class ProdutosAdd extends javax.swing.JFrame {
             }
         });
 
+        valorProdutoAdd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         valorProdutoAdd.setToolTipText("");
         valorProdutoAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
