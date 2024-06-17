@@ -40,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuEnderecos = new javax.swing.JMenu();
         jMenuItems = new javax.swing.JMenu();
         jMenuFinanceiro = new javax.swing.JMenu();
+        jMenuProdutos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Merc");
@@ -104,6 +105,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuFinanceiro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jMenuFinanceiro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jMenuBarPrincipal.add(jMenuFinanceiro);
+
+        jMenuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/produtos.png"))); // NOI18N
+        jMenuProdutos.setText("Produtos");
+        jMenuProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuBarPrincipal.add(jMenuProdutos);
 
         setJMenuBar(jMenuBarPrincipal);
 
@@ -210,5 +217,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFinanceiro;
     private javax.swing.JMenu jMenuFornecedores;
     private javax.swing.JMenu jMenuItems;
+    private javax.swing.JMenu jMenuProdutos;
     // End of variables declaration//GEN-END:variables
 }
