@@ -99,6 +99,28 @@ public class ItemCompraController {
           
         
     }
+    
+      public  ArrayList<ItemCompraClasse> selectCompra(Integer id){
+        
+          ItemCompra itemCompraModel =  new ItemCompra();
+          ArrayList<ItemCompraClasse> itemsCompra = null;
+          
+          try{
+              
+             itemsCompra = itemCompraModel.selectCompra(id);
+             
+        
+            return itemsCompra;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return itemsCompra;
+        
+        
+    }
 
     
 }

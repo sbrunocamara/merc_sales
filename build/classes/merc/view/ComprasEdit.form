@@ -97,7 +97,7 @@
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="produtoValorEditLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="produtoValorEdit" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="compraFornecedorEdit" min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -114,7 +114,7 @@
                   <Component id="jdataCompraEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="produtoDescricaoEditLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="produtoValorEditLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="produtoValorEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="compraFornecedorEdit" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="331" max="-2" attributes="0"/>
@@ -156,7 +156,7 @@
         <Property name="text" type="java.lang.String" value="Fornecedor:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="produtoValorEdit">
+    <Component class="javax.swing.JFormattedTextField" name="compraFornecedorEdit">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
           <Format subtype="1" type="0"/>
@@ -164,7 +164,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="produtoValorEditActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="compraFornecedorEditActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="produtoEditSave">

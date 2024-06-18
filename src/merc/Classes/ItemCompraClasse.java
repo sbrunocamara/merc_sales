@@ -55,5 +55,23 @@ public class ItemCompraClasse {
     private Integer produto_id;
     private Integer qtde;
     private Integer valor;
+
+    public Integer getValorUn() {
+        return valorUn;
+    }
+
+    public void setValorUn(Integer valorUn) {
+        this.valorUn = valorUn;
+    }
+    private Integer valorUn;
+
+    public String getNome_produto() {
+        return nome_produto;
+    }
+
+    public void setNome_produto(String nome_produto) {
+        this.nome_produto = nome_produto;
+    }
+    private String nome_produto;
    
 }

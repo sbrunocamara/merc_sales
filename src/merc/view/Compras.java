@@ -7,7 +7,9 @@ package merc.view;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import merc.Classes.CompraClasse;
 import merc.Classes.ProdutoClasse;
+import merc.controller.CompraController;
 import merc.controller.ProdutoController;
 
 
@@ -18,11 +20,11 @@ import merc.controller.ProdutoController;
  */
 public class Compras extends javax.swing.JFrame {
 
-    public  ArrayList<ProdutoClasse> produtos;
+    public  ArrayList<CompraClasse> compras;
     /**
      * Creates new form Fornecedores
      */
-    public Compras(ArrayList<ProdutoClasse> produtos) {
+    public Compras(ArrayList<CompraClasse> compras) {
         
         
         this.dispose();
@@ -31,7 +33,7 @@ public class Compras extends javax.swing.JFrame {
         initComponents();
        
         
-        this.produtos = produtos;
+        this.compras = compras;
         
         this.preencheTabela();
         
@@ -226,8 +228,8 @@ public class Compras extends javax.swing.JFrame {
     private void comprasButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comprasButtonAddMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        ProdutosAdd telaProdutosAdd = new ProdutosAdd();
-        telaProdutosAdd.setVisible(true);
+        ComprasAdd telaComprasAdd = new ComprasAdd();
+        telaComprasAdd.setVisible(true);
     }//GEN-LAST:event_comprasButtonAddMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -258,23 +260,25 @@ public class Compras extends javax.swing.JFrame {
             
         }
         
-        Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
-        String descricao = (String)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 1);
-        Integer valor = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 2);
-        Integer quantidade = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 3);
+       
         
-       ProdutoClasse produto = new ProdutoClasse();
-       produto.setDescricao(descricao);
-       produto.setValor_unitario(valor);
-       produto.setQtde_estoque(quantidade);
-       produto.setId(id);
+        Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
+        String data = (String)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 1);
+        String  fornecedor = (String)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 2);
+        Integer cod_fornecedor = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 3);
+        
+       CompraClasse compra = new CompraClasse();
+       compra.setId(id);
+       compra.setData(data);
+       compra.setNomeFornecedor(fornecedor);
+       compra.setFornecedor_id(cod_fornecedor);
     
 
         
         
         this.dispose();
-        ProdutosEdit telaProdutoEdit = new ProdutosEdit(produto);
-        telaProdutoEdit.setVisible(true);
+        ComprasEdit telaCompraEdit = new ComprasEdit(compra);
+        telaCompraEdit.setVisible(true);
         
     }//GEN-LAST:event_comprasButtonEditMouseClicked
 
@@ -292,15 +296,15 @@ public class Compras extends javax.swing.JFrame {
         Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
 
         
-       ProdutoClasse produto = new ProdutoClasse();
-       produto.setId(id);
+       CompraClasse compra = new CompraClasse();
+       compra.setId(id);
        
        int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
        
        if(dialogResult == 0) {
-           ProdutoController produtoController = new ProdutoController();
-           boolean remove = produtoController.remove(produto);
+           CompraController compraController = new CompraController();
+           boolean remove = compraController.remove(compra);
            
            if(remove == true){
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
@@ -361,7 +365,7 @@ public class Compras extends javax.swing.JFrame {
      
             
                 
-                new Compras(produtos).setVisible(true);
+                new Compras(compras).setVisible(true);
 
             }
         });
@@ -369,16 +373,17 @@ public class Compras extends javax.swing.JFrame {
      
     }
     
+
+    
     public boolean preencheTabela(){
             DefaultTableModel tableModel = (DefaultTableModel) jTableCompras.getModel();
                 tableModel.setRowCount(0);
-                produtos.forEach((produto)->{
-                    System.out.println(produto.getId());
+                compras.forEach((compra)->{
                     tableModel.addRow(new Object[] {
-                        produto.getId(),
-                        produto.getDescricao(),
-                        produto.getValor_unitario(),
-                        produto.getQtde_estoque(),
+                        compra.getId(),
+                        compra.getData(),
+                        compra.getNomeFornecedor(),
+                        compra.getFornecedor_id(),
                         
                     });
                 
@@ -389,14 +394,14 @@ public class Compras extends javax.swing.JFrame {
     }
     
     public void carregaTela(){
-         ProdutoController  produtoController = new ProdutoController();
-        ArrayList<ProdutoClasse> carregaProdtuos = produtoController.select();
+         CompraController  compraController = new CompraController();
+        ArrayList<CompraClasse> carregaCompras = compraController.select();
         
 
         
         
-        Compras telaProdutos = new Compras(carregaProdtuos);
-        telaProdutos.setVisible(true);
+        Compras telaCompras = new Compras(carregaCompras);
+        telaCompras.setVisible(true);
     }
     
     

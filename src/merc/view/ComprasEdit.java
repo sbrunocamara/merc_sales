@@ -6,9 +6,13 @@ package merc.view;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import merc.Classes.CompraClasse;
 import merc.Classes.FornecedorClasse;
+import merc.Classes.ItemCompraClasse;
 import merc.Classes.ProdutoClasse;
 import merc.controller.FornecedorController;
+import merc.controller.ItemCompraController;
 import merc.controller.ProdutoController;
 
 /**
@@ -18,19 +22,22 @@ import merc.controller.ProdutoController;
 public class ComprasEdit extends javax.swing.JFrame {
     
     
-   public  ProdutoClasse produtos;
+   public  CompraClasse compras;
 
     /**
      * Creates new form UsuariosAdd
      */
-    public ComprasEdit(ProdutoClasse produto) {
+    public ComprasEdit(CompraClasse compra) {
         initComponents();
         
-        produtoDescricaoEdit.setText(produto.getDescricao());
-        produtoValorEdit.setText(Integer.toString(produto.getValor_unitario()));
-        produtoQuantidadeEdit.setText(Integer.toString(produto.getQtde_estoque()));
+        jdataCompraEdit.setText(compra.getData());
+        compraFornecedorEdit.setText(compra.getNomeFornecedor());
         
-        this.produtos = produto;
+        
+        
+        this.preencheTabela(this.carregaItems(compra));
+  
+        this.compras = compra;
     }
 
     /**
@@ -53,7 +60,7 @@ public class ComprasEdit extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         produtoDescricaoEditLabel = new javax.swing.JLabel();
         produtoValorEditLabel = new javax.swing.JLabel();
-        produtoValorEdit = new javax.swing.JFormattedTextField();
+        compraFornecedorEdit = new javax.swing.JFormattedTextField();
         produtoEditSave = new javax.swing.JButton();
         jdataCompraEdit = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -88,11 +95,11 @@ public class ComprasEdit extends javax.swing.JFrame {
         produtoValorEditLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         produtoValorEditLabel.setText("Fornecedor:");
 
-        produtoValorEdit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        produtoValorEdit.setToolTipText("");
-        produtoValorEdit.addActionListener(new java.awt.event.ActionListener() {
+        compraFornecedorEdit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        compraFornecedorEdit.setToolTipText("");
+        compraFornecedorEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                produtoValorEditActionPerformed(evt);
+                compraFornecedorEditActionPerformed(evt);
             }
         });
 
@@ -162,7 +169,7 @@ public class ComprasEdit extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(produtoValorEditLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(produtoValorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(compraFornecedorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -175,7 +182,7 @@ public class ComprasEdit extends javax.swing.JFrame {
                     .addComponent(jdataCompraEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(produtoDescricaoEditLabel)
                     .addComponent(produtoValorEditLabel)
-                    .addComponent(produtoValorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(compraFornecedorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -187,13 +194,13 @@ public class ComprasEdit extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void produtoValorEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoValorEditActionPerformed
+    private void compraFornecedorEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraFornecedorEditActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_produtoValorEditActionPerformed
+    }//GEN-LAST:event_compraFornecedorEditActionPerformed
 
     private void produtoEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoEditSaveActionPerformed
         // TODO add your handling code here:
-       if(produtoDescricaoEdit.getText().isEmpty()|| produtoValorEdit.getText().isEmpty() || produtoQuantidadeEdit.getText().isEmpty()){
+       if(produtoDescricaoEdit.getText().isEmpty()|| compraFornecedorEdit.getText().isEmpty() || produtoQuantidadeEdit.getText().isEmpty()){
             
            JOptionPane.showMessageDialog(null, "Dados incompletos!");
            return;
@@ -201,7 +208,7 @@ public class ComprasEdit extends javax.swing.JFrame {
         }
        
         this.produtos.setDescricao(produtoDescricaoEdit.getText());
-        this.produtos.setValor_unitario(Integer.parseInt(produtoValorEdit.getText()));
+        this.produtos.setValor_unitario(Integer.parseInt(compraFornecedorEdit.getText()));
         this.produtos.setQtde_estoque(Integer.parseInt(produtoQuantidadeEdit.getText()));
      
         
@@ -232,16 +239,51 @@ public class ComprasEdit extends javax.swing.JFrame {
  
     private void limpaTela(java.awt.event.ActionEvent evt){
         
-        produtoDescricaoEdit.setText("");
-        produtoValorEdit.setText("");
-        produtoQuantidadeEdit.setText("");
+
+//        compraFornecedorEdit.setText("");
         
+    }
+    
+    public ArrayList<ItemCompraClasse> carregaItems(CompraClasse compra){
+        
+         ItemCompraController  itemCompraController = new ItemCompraController();
+        ArrayList<ItemCompraClasse> carregaItems = itemCompraController.selectCompra(compra.getId());
+        
+
+        return carregaItems;
+        
+        
+   
+        
+    }
+    
+        
+    public boolean preencheTabela(ArrayList<ItemCompraClasse> itemsCompra){
+            DefaultTableModel tableModel = (DefaultTableModel) jcompraItemsTable.getModel();
+                tableModel.setRowCount(0);
+                itemsCompra.forEach((item)->{
+                    tableModel.addRow(new Object[] {
+                        item.getId(),
+                        item.getCompra_id(),
+                        item.getNome_produto(),
+                        item.getProduto_id(),
+                        item.getQtde(),
+                        item.getValor(),
+                        item.getValorUn(),
+                        
+                        
+                    });
+                
+            });
+                jcompraItemsTable.setModel(tableModel);
+                
+                return true;
     }
     
     private void atualizaTela(java.awt.event.ActionEvent evt){
         
         produtoDescricaoEdit.setText(this.produtos.getDescricao());
-        produtoValorEdit.setText(Integer.toString(this.produtos.getValor_unitario()));
+        compraFornecedorEdit.setText(Integer.toString(this.produtos.getValor_unitario()));
         produtoQuantidadeEdit.setText(Integer.toString(this.produtos.getQtde_estoque()));
         
         
@@ -327,6 +369,7 @@ public class ComprasEdit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField compraFornecedorEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -341,7 +384,6 @@ public class ComprasEdit extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jdataCompraEdit;
     private javax.swing.JLabel produtoDescricaoEditLabel;
     private javax.swing.JButton produtoEditSave;
-    private javax.swing.JFormattedTextField produtoValorEdit;
     private javax.swing.JLabel produtoValorEditLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -64,7 +64,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuFinanceiro">
+        <Menu class="javax.swing.JMenu" name="jMenuCompras">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/assets/financeiro.png"/>
@@ -73,6 +73,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenuComprasMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuProdutos">
           <Properties>

@@ -19,7 +19,7 @@ import merc.database.ConnectionDB;
  */
 public class Compra {
     
-    public boolean insert(CompraClasse compra){
+    public Integer insert(CompraClasse compra){
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -27,11 +27,20 @@ public class Compra {
        
        try{
            connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
            pStatement = connection.prepareStatement(sql);
            pStatement.setString(1,compra.getData());
            pStatement.setInt(2,compra.getFornecedor_id());
 
           boolean insert = pStatement.execute();
+          
+          int id;
+          
+        ResultSet rs = pStatement.getGeneratedKeys(); 
+        if (rs.next()) { 
+            id = rs.getInt(1); 
+          return id;
+        } 
   
   
               
@@ -48,14 +57,14 @@ public class Compra {
        }
        }
        
-       return true;
+       return 0;
        
        
     }
     
     public ArrayList<CompraClasse> select(){
         
-        String sql = "select data,nome,fornecedor_id from compra";
+        String sql = "select compra.id,data,fornecedor_id,fornecedor.nome as fornecedor from compra inner join fornecedor on fornecedor_id = compra.fornecedor_id";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -74,7 +83,10 @@ public class Compra {
                while(comprasSelect.next()){
                    CompraClasse compraObjeto = new CompraClasse();
                    compraObjeto.setData(comprasSelect.getString("data"));
+                   compraObjeto.setNomeFornecedor(comprasSelect.getString("fornecedor"));
                    compraObjeto.setFornecedor_id(comprasSelect.getInt("fornecedor_id"));
+                   compraObjeto.setId(comprasSelect.getInt("id"));
+                   
                    
                     compras.add(compraObjeto);
                
@@ -97,9 +109,11 @@ public class Compra {
         
     }
     
-        public FornecedorClasse update(FornecedorClasse fornecedor){
+    
+    
+        public CompraClasse update(CompraClasse compra){
         
-      String sql = "UPDATE fornecedor SET nome = ?, email = ?, telefone = ?, cnpj = ? WHERE fornecedor.id = ?";
+      String sql = "UPDATE compra SET data = ?, fornecedor_id = ? WHERE compra.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -109,18 +123,18 @@ public class Compra {
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql);
      
-           pStatement.setString(1,fornecedor.getNome());
-           pStatement.setString(2,fornecedor.getEmail());
-           pStatement.setString(3,fornecedor.getTelefone());
-           pStatement.setString(4,fornecedor.getCnpj());
-           pStatement.setInt(5,fornecedor.getId());
+           pStatement.setString(1,compra.getData());
+           pStatement.setInt(2,compra.getFornecedor_id());
+           pStatement.setInt(3,compra.getId());
+           
+ ;
            
            
-           boolean fornecedoresUpdate = pStatement.execute();
+           boolean comprasUpdate = pStatement.execute();
            
 
    
-            return fornecedor;
+            return compra;
        
            
   
@@ -136,16 +150,16 @@ public class Compra {
        }
        }
        
-        FornecedorClasse returnFornecedor =  new FornecedorClasse();
+        CompraClasse returnCompra =  new CompraClasse();
         
-        return returnFornecedor;
+        return returnCompra;
         
         
     }
         
-         public boolean remove(FornecedorClasse fornecedor){
+         public boolean remove(CompraClasse compra){
         
-      String sql = "DELETE FROM fornecedor WHERE fornecedor.id = ?";
+      String sql = "DELETE FROM compra WHERE compra.id = ?";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -156,15 +170,14 @@ public class Compra {
            pStatement = connection.prepareStatement(sql);
      
         
-           pStatement.setInt(1,fornecedor.getId());
+           pStatement.setInt(1,compra.getId());
            
            
-           boolean fornecedoresDelete = pStatement.execute();
-           
-           System.out.println(fornecedoresDelete);
+           boolean compraDelete = pStatement.execute();
+
            
 
-         if(fornecedoresDelete == false){
+         if(compraDelete == false){
           return true;
                   } 
        
@@ -182,8 +195,7 @@ public class Compra {
        }
        }
        
-        FornecedorClasse returnFornecedor =  new FornecedorClasse();
-        
+
         return false;
         
         

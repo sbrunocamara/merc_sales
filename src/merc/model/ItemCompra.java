@@ -109,23 +109,21 @@ public class ItemCompra {
     
     public ArrayList<ItemCompraClasse> selectCompra(Integer compraId){
         
-       String sql = "select * from item_compra where compra_id = ?";
+       String sql = "select item_compra.id,item_compra.compra_id,item_compra.produto_id,item_compra.qtde,item_compra.valor, produto.descricao as produto_descricao,produto.valor_unitario as produto_un from item_compra inner join produto on produto.id = item_compra.produto_id where item_compra.compra_id ="+compraId;
        PreparedStatement pStatement =  null;
        Connection connection = null;
        
        ArrayList<ItemCompraClasse> itemsCompra = null;
        
-     
-       
-       
+           
        
        try{
            
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql);
-           pStatement.setInt(1,compraId);
+//           pStatement.setInt(1,compraId);
            ResultSet itemsCompraSelect = pStatement.executeQuery(sql);
-           
+       ;
            if(itemsCompraSelect != null){
                itemsCompra =  new ArrayList<>();
                
@@ -136,6 +134,9 @@ public class ItemCompra {
                    itemsCompraObjeto.setProduto_id(itemsCompraSelect.getInt("produto_id"));
                    itemsCompraObjeto.setQtde(itemsCompraSelect.getInt("qtde"));
                    itemsCompraObjeto.setValor(itemsCompraSelect.getInt("valor"));
+                    itemsCompraObjeto.setValorUn(itemsCompraSelect.getInt("produto_un"));
+                   itemsCompraObjeto.setNome_produto(itemsCompraSelect.getString("produto_descricao"));
+                   
             
                    itemsCompra.add(itemsCompraObjeto);
                } 

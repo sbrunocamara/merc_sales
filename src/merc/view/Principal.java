@@ -6,10 +6,12 @@ package merc.view;
 
 import java.util.ArrayList;
 import merc.Classes.ClienteClasse;
+import merc.Classes.CompraClasse;
 import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
 import merc.Classes.ProdutoClasse;
 import merc.controller.ClienteController;
+import merc.controller.CompraController;
 import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
 import merc.controller.ProdutoController;
@@ -41,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuClientes = new javax.swing.JMenu();
         jMenuEnderecos = new javax.swing.JMenu();
         jMenuItems = new javax.swing.JMenu();
-        jMenuFinanceiro = new javax.swing.JMenu();
+        jMenuCompras = new javax.swing.JMenu();
         jMenuProdutos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,11 +104,16 @@ public class Principal extends javax.swing.JFrame {
         jMenuItems.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jMenuBarPrincipal.add(jMenuItems);
 
-        jMenuFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/financeiro.png"))); // NOI18N
-        jMenuFinanceiro.setText("Compras");
-        jMenuFinanceiro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenuFinanceiro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jMenuBarPrincipal.add(jMenuFinanceiro);
+        jMenuCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/financeiro.png"))); // NOI18N
+        jMenuCompras.setText("Compras");
+        jMenuCompras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuCompras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuCompras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuComprasMouseClicked(evt);
+            }
+        });
+        jMenuBarPrincipal.add(jMenuCompras);
 
         jMenuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/produtos.png"))); // NOI18N
         jMenuProdutos.setText("Produtos");
@@ -195,6 +202,19 @@ public class Principal extends javax.swing.JFrame {
         telaProdutos.setVisible(true);
     }//GEN-LAST:event_jMenuProdutosMouseClicked
 
+    private void jMenuComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuComprasMouseClicked
+        // TODO add your handling code here:
+        CompraController  compraController = new CompraController();
+        ArrayList<CompraClasse> carregaCompras = compraController.select();
+        
+
+
+        
+        
+        Compras telaCompras = new Compras(carregaCompras);
+        telaCompras.setVisible(true);
+    }//GEN-LAST:event_jMenuComprasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -233,8 +253,8 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuClientes;
+    private javax.swing.JMenu jMenuCompras;
     private javax.swing.JMenu jMenuEnderecos;
-    private javax.swing.JMenu jMenuFinanceiro;
     private javax.swing.JMenu jMenuFornecedores;
     private javax.swing.JMenu jMenuItems;
     private javax.swing.JMenu jMenuProdutos;
