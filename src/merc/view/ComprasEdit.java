@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import merc.Classes.CompraClasse;
+import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
 import merc.Classes.ItemCompraClasse;
-import merc.Classes.ProdutoClasse;
+import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
 import merc.controller.ItemCompraController;
-import merc.controller.ProdutoController;
 
 /**
  *
@@ -30,13 +30,11 @@ public class ComprasEdit extends javax.swing.JFrame {
     public ComprasEdit(CompraClasse compra) {
         initComponents();
         
-        jdataCompraEdit.setText(compra.getData());
+    dataCompraEdit.setText(compra.getData());
         compraFornecedorEdit.setText(compra.getNomeFornecedor());
         
-        
-        
         this.preencheTabela(this.carregaItems(compra));
-  
+       
         this.compras = compra;
     }
 
@@ -49,30 +47,17 @@ public class ComprasEdit extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
-        jPopupMenu3 = new javax.swing.JPopupMenu();
-        jPopupMenu4 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
-        produtoDescricaoEditLabel = new javax.swing.JLabel();
-        produtoValorEditLabel = new javax.swing.JLabel();
+        descricaoAddLabel = new javax.swing.JLabel();
+        dataCompraEdit = new javax.swing.JFormattedTextField();
+        descricaoCepAddLabel = new javax.swing.JLabel();
         compraFornecedorEdit = new javax.swing.JFormattedTextField();
-        produtoEditSave = new javax.swing.JButton();
-        jdataCompraEdit = new javax.swing.JFormattedTextField();
+        enderecoEditSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jcompraItemsTable = new javax.swing.JTable();
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jMenuItem2.setText("jMenuItem2");
-
-        jMenuItem3.setText("jMenuItem3");
-
-        jMenuItem4.setText("jMenuItem4");
+        itemCompraButtonAdd = new javax.swing.JButton();
+        itemCompraButtonEdit = new javax.swing.JButton();
+        itemCompraButtonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,13 +74,19 @@ public class ComprasEdit extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/editar.png"))); // NOI18N
         jLabel1.setText("Alterar Compra");
 
-        produtoDescricaoEditLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        produtoDescricaoEditLabel.setText("Data:");
+        descricaoAddLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        descricaoAddLabel.setText("Data:");
 
-        produtoValorEditLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        produtoValorEditLabel.setText("Fornecedor:");
+        dataCompraEdit.setToolTipText("");
+        dataCompraEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataCompraEditActionPerformed(evt);
+            }
+        });
 
-        compraFornecedorEdit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        descricaoCepAddLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        descricaoCepAddLabel.setText("Fornecedor:");
+
         compraFornecedorEdit.setToolTipText("");
         compraFornecedorEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,17 +94,10 @@ public class ComprasEdit extends javax.swing.JFrame {
             }
         });
 
-        produtoEditSave.setText("Salvar");
-        produtoEditSave.addActionListener(new java.awt.event.ActionListener() {
+        enderecoEditSave.setText("Salvar");
+        enderecoEditSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                produtoEditSaveActionPerformed(evt);
-            }
-        });
-
-        jdataCompraEdit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jdataCompraEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jdataCompraEditActionPerformed(evt);
+                enderecoEditSaveActionPerformed(evt);
             }
         });
 
@@ -125,125 +109,144 @@ public class ComprasEdit extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Cod Compra", "Produto", "Cod Produto", "Qtde", "Valor Total", "Valor Un"
+                "Id", "Cod Compra", "Produto", "Cod Produto", "Qtde", "Valor Total", "Valor Un"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
         jScrollPane1.setViewportView(jcompraItemsTable);
+
+        itemCompraButtonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        itemCompraButtonAdd.setText("Incluir item");
+        itemCompraButtonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemCompraButtonAddMouseClicked(evt);
+            }
+        });
+        itemCompraButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCompraButtonAddActionPerformed(evt);
+            }
+        });
+
+        itemCompraButtonEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/editar.png"))); // NOI18N
+        itemCompraButtonEdit.setText("Editar item");
+        itemCompraButtonEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemCompraButtonEditMouseClicked(evt);
+            }
+        });
+        itemCompraButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCompraButtonEditActionPerformed(evt);
+            }
+        });
+
+        itemCompraButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/remover.png"))); // NOI18N
+        itemCompraButtonDelete.setText("Excluir item");
+        itemCompraButtonDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemCompraButtonDeleteMouseClicked(evt);
+            }
+        });
+        itemCompraButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCompraButtonDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 931, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(enderecoEditSave)
+                        .addGap(449, 449, 449))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(produtoEditSave)
-                        .addGap(386, 386, 386))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(produtoDescricaoEditLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jdataCompraEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(produtoValorEditLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(compraFornecedorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(345, 345, 345))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(descricaoAddLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dataCompraEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(descricaoCepAddLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(compraFornecedorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(itemCompraButtonAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(itemCompraButtonEdit)
+                        .addGap(18, 18, 18)
+                        .addComponent(itemCompraButtonDelete)
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jdataCompraEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(produtoDescricaoEditLabel)
-                    .addComponent(produtoValorEditLabel)
-                    .addComponent(compraFornecedorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(produtoEditSave)
-                .addGap(43, 43, 43))
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(descricaoAddLabel)
+                    .addComponent(dataCompraEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descricaoCepAddLabel)
+                    .addComponent(compraFornecedorEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(itemCompraButtonEdit)
+                    .addComponent(itemCompraButtonDelete)
+                    .addComponent(itemCompraButtonAdd))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(enderecoEditSave)
+                .addGap(10, 10, 10))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void dataCompraEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataCompraEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataCompraEditActionPerformed
+
     private void compraFornecedorEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraFornecedorEditActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_compraFornecedorEditActionPerformed
-
-    private void produtoEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoEditSaveActionPerformed
-        // TODO add your handling code here:
-       if(produtoDescricaoEdit.getText().isEmpty()|| compraFornecedorEdit.getText().isEmpty() || produtoQuantidadeEdit.getText().isEmpty()){
-            
-           JOptionPane.showMessageDialog(null, "Dados incompletos!");
-           return;
-            
-        }
-       
-        this.produtos.setDescricao(produtoDescricaoEdit.getText());
-        this.produtos.setValor_unitario(Integer.parseInt(compraFornecedorEdit.getText()));
-        this.produtos.setQtde_estoque(Integer.parseInt(produtoQuantidadeEdit.getText()));
-     
-        
- 
-        try{
-            
-           ProdutoController produtoController = new ProdutoController();
-            
-            ProdutoClasse update = produtoController.update(this.produtos);
-      
-            
-            
-            if(this.produtos == update){
-             JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
-             this.produtos = update;
-             this.atualizaTela(evt);
-            
-            }
-            
-            
-        }catch(Exception e){
-            
-            
-            return;
-        
-    }
-    }//GEN-LAST:event_produtoEditSaveActionPerformed
  
     private void limpaTela(java.awt.event.ActionEvent evt){
         
-
-//        compraFornecedorEdit.setText("");
+        dataCompraEdit.setText("");
+        compraFornecedorEdit.setText("");
         
     }
     
+    private void atualizaTela(java.awt.event.ActionEvent evt){
+        
+        dataCompraEdit.setText(this.enderecos.getDescricao());
+        compraFornecedorEdit.setText(this.enderecos.getCep());
+
+        
+        
+    }
+    
+        
     public ArrayList<ItemCompraClasse> carregaItems(CompraClasse compra){
         
          ItemCompraController  itemCompraController = new ItemCompraController();
@@ -257,8 +260,146 @@ public class ComprasEdit extends javax.swing.JFrame {
         
     }
     
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+
+
+        this.dispose();
         
-    public boolean preencheTabela(ArrayList<ItemCompraClasse> itemsCompra){
+        
+        EnderecoController enderecoController = new EnderecoController();
+        ArrayList<EnderecoClasse> carregaEnderecos = enderecoController.select();
+
+
+
+        Enderecos telaEndereco = new Enderecos(carregaEnderecos);
+        telaEndereco.setVisible(true);
+
+        
+        
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.dispose();
+        new Fornecedores.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void enderecoEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoEditSaveActionPerformed
+        // TODO add your handling code here:
+
+         if(dataCompraEdit.getText().isEmpty()|| compraFornecedorEdit.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "Dados incompletos!");
+           return;
+            
+        }
+
+        this.enderecos.setDescricao(dataCompraEdit.getText());
+        this.enderecos.setCep(compraFornecedorEdit.getText());  
+       
+ 
+        try{
+            
+            EnderecoController enderecoController = new EnderecoController();
+            
+            EnderecoClasse update = enderecoController.update(this.enderecos);
+      
+            
+            
+            if(this.enderecos == update){
+             JOptionPane.showMessageDialog(null, "Endereço alterado com sucesso!");
+             this.enderecos = update;
+             this.atualizaTela(evt);
+            
+            }
+            
+            
+        }catch(Exception e){
+            
+            
+            return;
+        
+    }
+    }//GEN-LAST:event_enderecoEditSaveActionPerformed
+
+    private void itemCompraButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCompraButtonAddMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        ComprasAdd telaComprasAdd = new ComprasAdd();
+        telaComprasAdd.setVisible(true);
+    }//GEN-LAST:event_itemCompraButtonAddMouseClicked
+
+    private void itemCompraButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompraButtonAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemCompraButtonAddActionPerformed
+
+    private void itemCompraButtonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCompraButtonEditMouseClicked
+        // TODO add your handling code here:
+
+        if(jcompraItemsTable.getSelectedRow() < 0){
+            return;
+
+        }
+
+//        Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
+//        String data = (String)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 1);
+//        String  fornecedor = (String)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 2);
+//        Integer cod_fornecedor = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 3);
+//
+        ItemCompraClasse compra = new ItemCompraClasse();
+//        compra.setId(id);
+//        compra.setData(data);
+//        compra.setNomeFornecedor(fornecedor);
+//        compra.setFornecedor_id(cod_fornecedor);
+
+        this.dispose();
+        itemCompraEdit telaItemCompra = new itemCompraEdit(compra);
+        telaItemCompra.setVisible(true);
+
+    }//GEN-LAST:event_itemCompraButtonEditMouseClicked
+
+    private void itemCompraButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompraButtonEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemCompraButtonEditActionPerformed
+
+    private void itemCompraButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCompraButtonDeleteMouseClicked
+        // TODO add your handling code here:
+        if(jTableCompras.getSelectedRow() < 0){
+            return;
+
+        }
+
+        Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
+
+        CompraClasse compra = new CompraClasse();
+        compra.setId(id);
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
+
+        if(dialogResult == 0) {
+            CompraController compraController = new CompraController();
+            boolean remove = compraController.remove(compra);
+
+            if(remove == true){
+                JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+                this.dispose();
+                this.carregaTela();
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
+            }
+
+        } else {
+
+        }
+
+    }//GEN-LAST:event_itemCompraButtonDeleteMouseClicked
+
+    private void itemCompraButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompraButtonDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemCompraButtonDeleteActionPerformed
+
+        public boolean preencheTabela(ArrayList<ItemCompraClasse> itemsCompra){
             DefaultTableModel tableModel = (DefaultTableModel) jcompraItemsTable.getModel();
                 tableModel.setRowCount(0);
                 itemsCompra.forEach((item)->{
@@ -279,45 +420,6 @@ public class ComprasEdit extends javax.swing.JFrame {
                 
                 return true;
     }
-    
-    private void atualizaTela(java.awt.event.ActionEvent evt){
-        
-        produtoDescricaoEdit.setText(this.produtos.getDescricao());
-        compraFornecedorEdit.setText(Integer.toString(this.produtos.getValor_unitario()));
-        produtoQuantidadeEdit.setText(Integer.toString(this.produtos.getQtde_estoque()));
-        
-        
-    }
-    
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-
-
-        this.dispose();
-        
-        
-        ProdutoController produtosController = new ProdutoController();
-        ArrayList<ProdutoClasse> carregaProdutos = produtosController.select();
-
-
-
-        Produtos telaProdutos = new Produtos(carregaProdutos);
-        telaProdutos.setVisible(true);
-
-        
-        
-    }//GEN-LAST:event_formWindowClosed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-        this.dispose();
-        new Produtos.setVisible(true);
-    }//GEN-LAST:event_formWindowClosing
-
-    private void jdataCompraEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdataCompraEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jdataCompraEditActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -370,20 +472,15 @@ public class ComprasEdit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField compraFornecedorEdit;
+    private javax.swing.JFormattedTextField dataCompraEdit;
+    private javax.swing.JLabel descricaoAddLabel;
+    private javax.swing.JLabel descricaoCepAddLabel;
+    private javax.swing.JButton enderecoEditSave;
+    private javax.swing.JButton itemCompraButtonAdd;
+    private javax.swing.JButton itemCompraButtonDelete;
+    private javax.swing.JButton itemCompraButtonEdit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JPopupMenu jPopupMenu3;
-    private javax.swing.JPopupMenu jPopupMenu4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jcompraItemsTable;
-    private javax.swing.JFormattedTextField jdataCompraEdit;
-    private javax.swing.JLabel produtoDescricaoEditLabel;
-    private javax.swing.JButton produtoEditSave;
-    private javax.swing.JLabel produtoValorEditLabel;
     // End of variables declaration//GEN-END:variables
 }
