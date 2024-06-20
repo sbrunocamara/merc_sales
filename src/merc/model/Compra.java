@@ -28,7 +28,6 @@ public class Compra {
        try{
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-           pStatement = connection.prepareStatement(sql);
            pStatement.setString(1,compra.getData());
            pStatement.setInt(2,compra.getFornecedor_id());
 

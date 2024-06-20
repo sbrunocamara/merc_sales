@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import merc.Classes.CompraClasse;
+import merc.Classes.FornecedorClasse;
 import merc.Classes.ProdutoClasse;
 import merc.controller.CompraController;
 import merc.controller.ProdutoController;
@@ -159,6 +160,11 @@ public class Compras extends javax.swing.JFrame {
                 comprasButtonEditActionPerformed(evt);
             }
         });
+        comprasButtonEdit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                comprasButtonEditKeyTyped(evt);
+            }
+        });
 
         comprasButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/remover.png"))); // NOI18N
         comprasButtonDelete.setText("Excluir");
@@ -228,7 +234,9 @@ public class Compras extends javax.swing.JFrame {
     private void comprasButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comprasButtonAddMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        ComprasAdd telaComprasAdd = new ComprasAdd();
+        FornecedorClasse fornecedorClasse = new FornecedorClasse();
+        fornecedorClasse.setId(0);
+        ComprasAdd telaComprasAdd = new ComprasAdd(fornecedorClasse);
         telaComprasAdd.setVisible(true);
     }//GEN-LAST:event_comprasButtonAddMouseClicked
 
@@ -319,6 +327,10 @@ public class Compras extends javax.swing.JFrame {
                          } 
        
     }//GEN-LAST:event_comprasButtonDeleteMouseClicked
+
+    private void comprasButtonEditKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_comprasButtonEditKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comprasButtonEditKeyTyped
 
     /**
      * @param args the command line arguments

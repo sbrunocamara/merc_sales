@@ -164,6 +164,11 @@ public class ItemCompra {
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
+       
+            System.out.println(itemCompra.getQtde());
+            System.out.println(itemCompra.getValorUn());
+            System.out.println(itemCompra.getQtde()*itemCompra.getValorUn());
+            
               
        try{
            
@@ -173,7 +178,8 @@ public class ItemCompra {
            pStatement.setInt(1,itemCompra.getCompra_id());
            pStatement.setInt(2,itemCompra.getProduto_id());
            pStatement.setInt(3,itemCompra.getQtde());
-           pStatement.setInt(4,itemCompra.getValor());
+           pStatement.setInt(4,itemCompra.getQtde()*itemCompra.getValorUn());
+           pStatement.setInt(5,itemCompra.getId());
 
               
            

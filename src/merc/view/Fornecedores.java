@@ -219,17 +219,6 @@ public class Fornecedores extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        FornecedoresAdd telaFornecedorAdd = new FornecedoresAdd();
-        telaFornecedorAdd.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
        
@@ -245,77 +234,84 @@ public class Fornecedores extends javax.swing.JFrame {
 //        System.out.println(jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0));
     }//GEN-LAST:event_jTableFornecedoresMouseClicked
 
-    private void FornecedoresButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FornecedoresButtonEditActionPerformed
-
-    private void FornecedoresButtonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditMouseClicked
-        // TODO add your handling code here:
-        
-        
-        if(jTableFornecedores.getSelectedRow() < 0){
-            return;
-            
-        }
-        
-        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
-        String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
-        String email = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
-        String cnpj = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
-        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 4);
-        
-       FornecedorClasse fornecedor = new FornecedorClasse();
-       fornecedor.setId(id);
-       fornecedor.setNome(nome);
-       fornecedor.setEmail(email);
-       fornecedor.setCnpj(cnpj);
-       fornecedor.setTelefone(telefone);
-       
-        
-        
-        this.dispose();
-        FornecedoresEdit telaFornecedorEdit = new FornecedoresEdit(fornecedor);
-        telaFornecedorEdit.setVisible(true);
-        
-    }//GEN-LAST:event_FornecedoresButtonEditMouseClicked
-
     private void fornecedoresButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedoresButtonDeleteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fornecedoresButtonDeleteActionPerformed
 
     private void fornecedoresButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fornecedoresButtonDeleteMouseClicked
         // TODO add your handling code here:
-           if(jTableFornecedores.getSelectedRow() < 0){
+        if(jTableFornecedores.getSelectedRow() < 0){
             return;
-            
+
         }
-        
+
         Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
 
-        
-       FornecedorClasse fornecedor = new FornecedorClasse();
-       fornecedor.setId(id);
-       
-       int dialogButton = JOptionPane.YES_NO_OPTION;
+        FornecedorClasse fornecedor = new FornecedorClasse();
+        fornecedor.setId(id);
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
-       
-       if(dialogResult == 0) {
-           FornecedorController fornecedorController = new FornecedorController();
-           boolean remove = fornecedorController.remove(fornecedor);
-           
-           if(remove == true){
+
+        if(dialogResult == 0) {
+            FornecedorController fornecedorController = new FornecedorController();
+            boolean remove = fornecedorController.remove(fornecedor);
+
+            if(remove == true){
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
-                  this.dispose();
-                  this.carregaTela();
-           }else{
-               JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
-           }
-           
-             } else {
-               
-                         } 
-       
+                this.dispose();
+                this.carregaTela();
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
+            }
+
+        } else {
+
+        }
+
     }//GEN-LAST:event_fornecedoresButtonDeleteMouseClicked
+
+    private void FornecedoresButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FornecedoresButtonEditActionPerformed
+
+    private void FornecedoresButtonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditMouseClicked
+        // TODO add your handling code here:
+
+        if(jTableFornecedores.getSelectedRow() < 0){
+            return;
+
+        }
+
+        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
+        String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
+        String email = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
+        String cnpj = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
+        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 4);
+
+        FornecedorClasse fornecedor = new FornecedorClasse();
+        fornecedor.setId(id);
+        fornecedor.setNome(nome);
+        fornecedor.setEmail(email);
+        fornecedor.setCnpj(cnpj);
+        fornecedor.setTelefone(telefone);
+
+        this.dispose();
+        FornecedoresEdit telaFornecedorEdit = new FornecedoresEdit(fornecedor);
+        telaFornecedorEdit.setVisible(true);
+
+    }//GEN-LAST:event_FornecedoresButtonEditMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        FornecedoresAdd telaFornecedorAdd = new FornecedoresAdd();
+        telaFornecedorAdd.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
