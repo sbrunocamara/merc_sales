@@ -308,45 +308,45 @@ public class ComprasEdit extends javax.swing.JFrame {
     private void enderecoEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoEditSaveActionPerformed
         // TODO add your handling code here:
 
-         if(dataCompraEdit.getText().isEmpty()|| compraFornecedorEdit.getText().isEmpty()){
-           JOptionPane.showMessageDialog(null, "Dados incompletos!");
-           return;
-            
-        }
-
-        this.enderecos.setDescricao(dataCompraEdit.getText());
-        this.enderecos.setCep(compraFornecedorEdit.getText());  
-       
- 
-        try{
-            
-            EnderecoController enderecoController = new EnderecoController();
-            
-            EnderecoClasse update = enderecoController.update(this.enderecos);
-      
-            
-            
-            if(this.enderecos == update){
-             JOptionPane.showMessageDialog(null, "Endereço alterado com sucesso!");
-             this.enderecos = update;
-             this.atualizaTela(evt);
-            
-            }
-            
-            
-        }catch(Exception e){
-            
-            
-            return;
-        
-    }
+//         if(dataCompraEdit.getText().isEmpty()|| compraFornecedorEdit.getText().isEmpty()){
+//           JOptionPane.showMessageDialog(null, "Dados incompletos!");
+//           return;
+//            
+//        }
+//
+//        this.enderecos.setDescricao(dataCompraEdit.getText());
+//        this.enderecos.setCep(compraFornecedorEdit.getText());  
+//       
+// 
+//        try{
+//            
+//            EnderecoController enderecoController = new EnderecoController();
+//            
+//            EnderecoClasse update = enderecoController.update(this.enderecos);
+//      
+//            
+//            
+//            if(this.enderecos == update){
+//             JOptionPane.showMessageDialog(null, "Endereço alterado com sucesso!");
+//             this.enderecos = update;
+//             this.atualizaTela(evt);
+//            
+//            }
+//            
+//            
+//        }catch(Exception e){
+//            
+//            
+//            return;
+//        
+//    }
     }//GEN-LAST:event_enderecoEditSaveActionPerformed
 
     private void itemCompraButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCompraButtonAddMouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        ComprasAdd telaComprasAdd = new ComprasAdd();
-        telaComprasAdd.setVisible(true);
+//        this.dispose();
+//        ComprasAdd telaComprasAdd = new ComprasAdd();
+//        telaComprasAdd.setVisible(true);
     }//GEN-LAST:event_itemCompraButtonAddMouseClicked
 
     private void itemCompraButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompraButtonAddActionPerformed
@@ -390,35 +390,35 @@ public class ComprasEdit extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCompraButtonEditActionPerformed
 
     private void itemCompraButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCompraButtonDeleteMouseClicked
-        // TODO add your handling code here:
-        if(jTableCompras.getSelectedRow() < 0){
-            return;
-
-        }
-
-        Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
-
-        CompraClasse compra = new CompraClasse();
-        compra.setId(id);
-
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
-
-        if(dialogResult == 0) {
-            CompraController compraController = new CompraController();
-            boolean remove = compraController.remove(compra);
-
-            if(remove == true){
-                JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
-                this.dispose();
-                this.carregaTela();
-            }else{
-                JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
-            }
-
-        } else {
-
-        }
+//        // TODO add your handling code here:
+//        if(jTableCompras.getSelectedRow() < 0){
+//            return;
+//
+//        }
+//
+//        Integer id = (Integer)jTableCompras.getModel().getValueAt(jTableCompras.getSelectedRow(), 0);
+//
+//        CompraClasse compra = new CompraClasse();
+//        compra.setId(id);
+//
+//        int dialogButton = JOptionPane.YES_NO_OPTION;
+//        int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
+//
+//        if(dialogResult == 0) {
+//            CompraController compraController = new CompraController();
+//            boolean remove = compraController.remove(compra);
+//
+//            if(remove == true){
+//                JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+//                this.dispose();
+//                this.carregaTela();
+//            }else{
+//                JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
+//            }
+//
+//        } else {
+//
+//        }
 
     }//GEN-LAST:event_itemCompraButtonDeleteMouseClicked
 

@@ -286,7 +286,7 @@ public class ItemsCompraLista extends javax.swing.JFrame {
      
             
                 
-                new ItemsCompraLista(produtos).setVisible(true);
+//                new ItemsCompraLista(produtos).setVisible(true);
 
             }
         });
@@ -320,8 +320,8 @@ public class ItemsCompraLista extends javax.swing.JFrame {
 
         
         
-        ItemsCompraLista telaProdutos = new ItemsCompraLista(carregaProdtuos);
-        telaProdutos.setVisible(true);
+//        ItemsCompraLista telaProdutos = new ItemsCompraLista(carregaProdtuos);
+//        telaProdutos.setVisible(true);
     }
     
     
