@@ -106,6 +106,51 @@ public class Produto {
         
     }
     
+        public ProdutoClasse selectById(Integer id){
+        
+       String sql = "select produto.id,produto.descricao,produto.valor_unitario,produto.qtde_estoque from produto where produto.id="+id;
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+       
+      ProdutoClasse produto = null;
+       
+       
+       
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+           ResultSet produtosSelect = pStatement.executeQuery(sql);
+           
+          
+            
+           
+           if(produtosSelect != null){
+               produto =  new ProdutoClasse();
+               
+               produto.setDescricao(produtosSelect.getString("descricao"));
+               produto.setQtde_estoque(produtosSelect.getInt("qtde_estoque"));
+               produto.setValor_unitario(produtosSelect.getInt("valor_unitario"));
+               produto.setId(produtosSelect.getInt("id"));
+      
+           }
+           
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+          
+       return produto;
+        
+    }
+    
         public ProdutoClasse update(ProdutoClasse produto){
             
 
@@ -197,7 +242,7 @@ public class Produto {
          
               public ProdutoClasse decrementaQuantidade(ProdutoClasse produto){
 
-      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque - ? WHERE produto.id = ?";
+      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque -"+produto.getQtde_estoque()+" WHERE produto.id ="+produto.getId();
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -242,7 +287,7 @@ public class Produto {
        
     public ProdutoClasse incrementaQuantidade(ProdutoClasse produto){
 
-      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque + ? WHERE produto.id = ?";
+      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque +"+produto.getQtde_estoque()+" WHERE produto.id ="+produto.getId();
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -253,9 +298,9 @@ public class Produto {
            pStatement = connection.prepareStatement(sql);
      
 
-           pStatement.setInt(1,produto.getQtde_estoque());
-           pStatement.setInt(2,produto.getId());
-           
+//           pStatement.setInt(1,produto.getQtde_estoque());
+//           pStatement.setInt(2,produto.getId());
+//           
 
               
            

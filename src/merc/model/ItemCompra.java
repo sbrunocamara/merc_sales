@@ -107,6 +107,44 @@ public class ItemCompra {
         
     }
     
+        public ItemCompraClasse selectById(Integer id){
+        
+        String sql = "select * from item_compra where id="+id;
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+       
+      ItemCompraClasse itemCompra = null;
+       
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+           ResultSet itemsCompraSelect = pStatement.executeQuery(sql);
+           
+           if(itemsCompraSelect != null){
+              ItemCompraClasse itemsCompra =  new ItemCompraClasse();
+               
+               Integer itemcompraQtde = itemsCompraSelect.getInt("qtde");
+               
+          
+           }
+           
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+          
+       return itemCompra;
+        
+    }
+    
     public ArrayList<ItemCompraClasse> selectCompra(Integer compraId){
         
        String sql = "select item_compra.id,item_compra.compra_id,item_compra.produto_id,item_compra.qtde,item_compra.valor, produto.descricao as produto_descricao,produto.valor_unitario as produto_un from item_compra inner join produto on produto.id = item_compra.produto_id where item_compra.compra_id ="+compraId;
@@ -164,11 +202,7 @@ public class ItemCompra {
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
-       
-            System.out.println(itemCompra.getQtde());
-            System.out.println(itemCompra.getValorUn());
-            System.out.println(itemCompra.getQtde()*itemCompra.getValorUn());
-            
+                  
               
        try{
            
@@ -184,18 +218,21 @@ public class ItemCompra {
               
            
            boolean itemCompraUpdate = pStatement.execute();
-           
+     
 
    
             return itemCompra;
        
              
        }catch(SQLException e){
+      
             e.printStackTrace();
        }finally{
+           
            try{
            if(pStatement != null){pStatement.close();}
            }catch(SQLException e){
+    
             e.printStackTrace();
            
        }

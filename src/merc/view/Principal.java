@@ -208,10 +208,6 @@ public class Principal extends javax.swing.JFrame {
         ArrayList<CompraClasse> carregaCompras = compraController.select();
         
 
-
-        
-        System.out.println(carregaCompras);
-        
         
         Compras telaCompras = new Compras(carregaCompras);
         telaCompras.setVisible(true);

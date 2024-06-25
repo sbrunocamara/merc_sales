@@ -5,9 +5,8 @@
 package merc.controller;
 
 import java.util.ArrayList;
-import merc.Classes.EnderecoClasse;
 import merc.Classes.ItemCompraClasse;
-import merc.model.Endereco;
+import merc.Classes.ProdutoClasse;
 import merc.model.ItemCompra;
 
 
@@ -69,9 +68,39 @@ public class ItemCompraController {
             
           
           try{
-              
-            ItemCompraClasse update = itemCompraModel.update(itemCompra);
              
+            ItemCompraClasse select = itemCompraModel.selectById(itemCompra.getId());
+            
+            ItemCompraClasse update = itemCompraModel.update(itemCompra);
+            
+//            
+//            ProdutoController produtoController = new ProdutoController();
+//            ProdutoClasse produto = produtoController.selectById(itemCompra.getProduto_id());
+//            
+////            Integer produtoId = produto.getId();
+////            Integer produtoQtde = produto.getQtde_estoque();   
+////            
+//                   
+//            if(select.getQtde() < itemCompra.getQtde()){
+//                
+//               Integer Qtde = itemCompra.getQtde() - select.getQtde();
+//               produto.setQtde_estoque(Qtde);
+//               produtoController.incrementaQuantidade(produto);
+//       
+//                
+//            }
+//
+//            if(select.getQtde() > itemCompra.getQtde()){
+//                
+//               Integer Qtde = select.getQtde() - itemCompra.getQtde() ;
+//               produto.setQtde_estoque(Qtde);
+//               produtoController.decrementaQuantidade(produto);
+//       
+//                
+//            }
+          
+            
+            
         
             return update;
         

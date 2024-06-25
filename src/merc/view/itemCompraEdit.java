@@ -264,9 +264,8 @@ public class itemCompraEdit extends javax.swing.JFrame {
     
         
         ItemCompraController itemCompraController = new ItemCompraController();
-        itemCompraController.update( this.itemsCompra);
-        
-        System.out.println(this.compras.getData());
+        itemCompraController.update(this.itemsCompra);
+  
         
         ComprasEdit comprasEditTela = new ComprasEdit(this.compras);        
         comprasEditTela.setVisible(true);

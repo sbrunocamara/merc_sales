@@ -66,6 +66,27 @@ public class ProdutoController {
         
     }
     
+    public  ProdutoClasse selectById(Integer id){
+        
+            Produto produtoModel =  new Produto();
+            ProdutoClasse produtos = null;
+          
+          try{
+             produtos = produtoModel.selectById(id);
+             
+        
+            return produtos;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return produtos;
+        
+        
+    }
+    
         
     public ProdutoClasse update(ProdutoClasse produto){
         
