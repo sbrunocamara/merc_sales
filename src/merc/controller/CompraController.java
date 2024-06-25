@@ -68,6 +68,28 @@ public class CompraController {
         
     }
     
+        public  ArrayList<CompraClasse> selectOnly(){
+        
+            Compra compraModel =  new Compra();
+          ArrayList<CompraClasse> compras = null;
+          
+          try{
+             compras = compraModel.selectOnly();
+             
+        
+            return compras;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return compras;
+        
+        
+    }
+    
+    
         
     public CompraClasse update(CompraClasse compra){
         

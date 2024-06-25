@@ -5,8 +5,8 @@
 package merc.view;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import merc.Classes.CompraClasse;
 import merc.Classes.FornecedorClasse;
 import merc.controller.FornecedorController;
 
@@ -16,14 +16,15 @@ import merc.controller.FornecedorController;
  *
  * @author bsbru
  */
-public class FornecedoresLista extends javax.swing.JFrame {
+public class FornecedoresListaCompra extends javax.swing.JFrame {
 
     public  ArrayList<FornecedorClasse> fornecedores;
+    public CompraClasse compras;
     
     /**
      * Creates new form Fornecedores
      */
-    public FornecedoresLista(ArrayList<FornecedorClasse> fornecedores) {
+    public FornecedoresListaCompra(ArrayList<FornecedorClasse> fornecedores, CompraClasse compra) {
         
         
         this.dispose();
@@ -33,6 +34,8 @@ public class FornecedoresLista extends javax.swing.JFrame {
        
         
         this.fornecedores = fornecedores;
+        
+        this.compras = compra;
         
         this.preencheTabela();
         
@@ -205,23 +208,17 @@ public class FornecedoresLista extends javax.swing.JFrame {
 
     private void selecionaFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selecionaFornecedorMouseClicked
         // TODO add your handling code here:
-        
-        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
-        String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
-        String email = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
-        String cnpj = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
-        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 4);
 
-        FornecedorClasse fornecedor = new FornecedorClasse();
-        fornecedor.setId(id);
-        fornecedor.setNome(nome);
-        fornecedor.setEmail(email);
-        fornecedor.setCnpj(cnpj);
-        fornecedor.setTelefone(telefone);
+        Integer fornecedorId = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
+        String fornecedorNome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
         
-        ComprasAdd comprasAddTela = new ComprasAdd(fornecedor);
-        comprasAddTela.setVisible(true);
+        this.compras.setFornecedor_id(fornecedorId);
+        this.compras.setNomeFornecedor(fornecedorNome);
+        
+        ComprasEdit comprasEditTela = new ComprasEdit(this.compras);
+        comprasEditTela.setVisible(true);
         this.dispose();
+        
         
         
     }//GEN-LAST:event_selecionaFornecedorMouseClicked
@@ -245,14 +242,18 @@ public class FornecedoresLista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FornecedoresLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FornecedoresListaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FornecedoresLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FornecedoresListaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FornecedoresLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FornecedoresListaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FornecedoresLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FornecedoresListaCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -267,7 +268,7 @@ public class FornecedoresLista extends javax.swing.JFrame {
      
             
                 
-                new FornecedoresLista(fornecedores).setVisible(true);
+                new FornecedoresListaCompra(fornecedores,null).setVisible(true);
 
             }
         });
@@ -301,7 +302,7 @@ public class FornecedoresLista extends javax.swing.JFrame {
 
         
         
-        FornecedoresLista telaFornecedores = new FornecedoresLista(carregaFornecedores);
+        FornecedoresListaCompra telaFornecedores = new FornecedoresListaCompra(carregaFornecedores,this.compras);
         telaFornecedores.setVisible(true);
     }
     

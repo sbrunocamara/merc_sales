@@ -63,7 +63,54 @@ public class Compra {
     
     public ArrayList<CompraClasse> select(){
         
-        String sql = "select compra.id,data,fornecedor_id,fornecedor.nome as fornecedor from compra inner join fornecedor on fornecedor_id = compra.fornecedor_id";
+        String sql = "select compra.id,data,fornecedor_id,fornecedor.nome as fornecedor from compra inner join fornecedor on fornecedor.id = compra.fornecedor_id";
+        
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+       
+       ArrayList<CompraClasse> compras = null;
+       
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+           ResultSet comprasSelect = pStatement.executeQuery(sql);
+           
+           if(comprasSelect != null){
+               compras =  new ArrayList<>();
+               
+               while(comprasSelect.next()){
+                   CompraClasse compraObjeto = new CompraClasse();
+                   compraObjeto.setData(comprasSelect.getString("data"));
+                   compraObjeto.setNomeFornecedor(comprasSelect.getString("fornecedor"));
+                   compraObjeto.setFornecedor_id(comprasSelect.getInt("fornecedor_id"));
+                   compraObjeto.setId(comprasSelect.getInt("id"));
+                   
+                   
+                    compras.add(compraObjeto);
+               
+               } 
+           }
+           
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+          
+       return compras;
+        
+    }
+    
+        public ArrayList<CompraClasse> selectOnly(){
+        
+        String sql = "select id,data,fornecedor_id from compra";
         
        PreparedStatement pStatement =  null;
        Connection connection = null;
@@ -119,9 +166,11 @@ public class Compra {
               
        try{
            
+           
            connection = new ConnectionDB().getConnection();
            pStatement = connection.prepareStatement(sql);
-     
+           
+           
            pStatement.setString(1,compra.getData());
            pStatement.setInt(2,compra.getFornecedor_id());
            pStatement.setInt(3,compra.getId());

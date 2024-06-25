@@ -210,6 +210,8 @@ public class Principal extends javax.swing.JFrame {
 
 
         
+        System.out.println(carregaCompras);
+        
         
         Compras telaCompras = new Compras(carregaCompras);
         telaCompras.setVisible(true);
