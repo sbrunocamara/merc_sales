@@ -10,11 +10,13 @@ import merc.Classes.CompraClasse;
 import merc.Classes.EnderecoClasse;
 import merc.Classes.FornecedorClasse;
 import merc.Classes.ProdutoClasse;
+import merc.Classes.UsuarioClasse;
 import merc.controller.ClienteController;
 import merc.controller.CompraController;
 import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
 import merc.controller.ProdutoController;
+import merc.controller.UsuarioController;
 
 /**
  *
@@ -45,6 +47,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItems = new javax.swing.JMenu();
         jMenuCompras = new javax.swing.JMenu();
         jMenuProdutos = new javax.swing.JMenu();
+        jMenuUsuarios = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Merc");
@@ -125,6 +128,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenuBarPrincipal.add(jMenuProdutos);
+
+        jMenuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/usuario.png"))); // NOI18N
+        jMenuUsuarios.setText("Usuários");
+        jMenuUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenuUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jMenuUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuUsuariosMouseClicked(evt);
+            }
+        });
+        jMenuBarPrincipal.add(jMenuUsuarios);
 
         setJMenuBar(jMenuBarPrincipal);
 
@@ -213,6 +227,20 @@ public class Principal extends javax.swing.JFrame {
         telaCompras.setVisible(true);
     }//GEN-LAST:event_jMenuComprasMouseClicked
 
+    private void jMenuUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuUsuariosMouseClicked
+        // TODO add your handling code here:
+        
+          UsuarioController  usuarioController = new UsuarioController();
+        ArrayList<UsuarioClasse> carregaUsuarios = usuarioController.select();
+        
+
+
+        
+        
+        Usuarios telaUsuarios = new Usuarios(carregaUsuarios);
+        telaUsuarios.setVisible(true);
+    }//GEN-LAST:event_jMenuUsuariosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -256,5 +284,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFornecedores;
     private javax.swing.JMenu jMenuItems;
     private javax.swing.JMenu jMenuProdutos;
+    private javax.swing.JMenu jMenuUsuarios;
     // End of variables declaration//GEN-END:variables
 }
