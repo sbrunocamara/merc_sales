@@ -83,6 +83,11 @@ public class FornecedoresAdd extends javax.swing.JFrame {
             }
         });
 
+        try {
+            forncedorCnpjAdd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         forncedorCnpjAdd.setToolTipText("");
         forncedorCnpjAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +102,11 @@ public class FornecedoresAdd extends javax.swing.JFrame {
             }
         });
 
+        try {
+            fornecedorTelefoneAdd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         fornecedorTelefoneAdd.setToolTipText("");
         fornecedorTelefoneAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,12 +190,26 @@ public class FornecedoresAdd extends javax.swing.JFrame {
 
     private void userAddSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userAddSaveActionPerformed
         // TODO add your handling code here:
-       if(fornecedorNameAdd.getText().isEmpty()|| fornecedorEmailAdd.getText().isEmpty() ||forncedorCnpjAdd.getText().isEmpty() || fornecedorTelefoneAdd.getText().isEmpty()){
+
+        if(this.limpaCampo(forncedorCnpjAdd.getText()).isEmpty()){
+             JOptionPane.showMessageDialog(null, "CNPJ não informado!");
+             return;
+        }
+        
+           if(this.limpaCampo(fornecedorTelefoneAdd.getText()).isEmpty()){
+             JOptionPane.showMessageDialog(null, "Telefone não informado!");
+             return;
+        }
+        
+        
+       if(fornecedorNameAdd.getText().isEmpty()|| fornecedorEmailAdd.getText().isEmpty() ||this.limpaCampo(forncedorCnpjAdd.getText()).isEmpty() || this.limpaCampo(fornecedorTelefoneAdd.getText()).isEmpty()){
             
            JOptionPane.showMessageDialog(null, "Dados incompletos!");
            return;
             
         }
+       
+       
         try{
             
             FornecedorController fornecedorController = new FornecedorController();
@@ -213,6 +237,28 @@ public class FornecedoresAdd extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_userAddSaveActionPerformed
  
+    private String limpaCampo(String campo){
+        
+      String campoLimpo = campo.replaceAll("[()\\-_\\.]", "");
+      
+      String retorno = "";
+      
+      
+        for (int i = 0; i < campoLimpo.length(); i++) {
+            if (campoLimpo.charAt(i) != ' ') {
+                retorno = retorno + campoLimpo.charAt(i);
+                
+            }
+              
+            }
+            
+            
+    
+        return retorno;
+        
+    }
+    
+    
     private void limpaTela(java.awt.event.ActionEvent evt){
         
         fornecedorNameAdd.setText("");

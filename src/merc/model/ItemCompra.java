@@ -109,7 +109,7 @@ public class ItemCompra {
     
         public ItemCompraClasse selectById(Integer id){
         
-        String sql = "select * from item_compra where id="+id;
+       String sql = "select * from item_compra where id="+id;
        PreparedStatement pStatement =  null;
        Connection connection = null;
        
@@ -122,12 +122,26 @@ public class ItemCompra {
            ResultSet itemsCompraSelect = pStatement.executeQuery(sql);
            
            if(itemsCompraSelect != null){
-              ItemCompraClasse itemsCompra =  new ItemCompraClasse();
+               itemCompra =  new ItemCompraClasse();
                
-               Integer itemcompraQtde = itemsCompraSelect.getInt("qtde");
-               
-          
+               while(itemsCompraSelect.next()){
+               itemCompra.setQtde(itemsCompraSelect.getInt("qtde"));
+              
+
+            
+               } 
            }
+
+           
+//           if(itemsCompraSelect != null){
+//              ItemCompraClasse itemsCompra =  new ItemCompraClasse();
+//               
+//               Integer itemCompraQtde = itemsCompraSelect.getInt("qtde");
+//               
+//               itemsCompra.setQtde(itemCompraQtde);
+//               
+//          
+//           }
            
            
        }catch(SQLException e){

@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import merc.Classes.ItemPedidoClasse;
-import merc.Classes.PedidoClasse;
 import merc.Classes.ProdutoClasse;
 import merc.database.ConnectionDB;
 
@@ -76,6 +74,8 @@ public class Produto {
            pStatement = connection.prepareStatement(sql);
            ResultSet produtosSelect = pStatement.executeQuery(sql);
            
+           
+           
            if(produtosSelect != null){
                produtos =  new ArrayList<>();
                
@@ -107,8 +107,9 @@ public class Produto {
     }
     
         public ProdutoClasse selectById(Integer id){
-        
-       String sql = "select produto.id,produto.descricao,produto.valor_unitario,produto.qtde_estoque from produto where produto.id="+id;
+   
+       String sql = "select * from produto where id="+id;
+       
        PreparedStatement pStatement =  null;
        Connection connection = null;
        
@@ -122,19 +123,22 @@ public class Produto {
            pStatement = connection.prepareStatement(sql);
            ResultSet produtosSelect = pStatement.executeQuery(sql);
            
-          
-            
            
-           if(produtosSelect != null){
-               produto =  new ProdutoClasse();
+                 if(produtosSelect != null){
+              
                
+               while(produtosSelect.next()){
                produto.setDescricao(produtosSelect.getString("descricao"));
                produto.setQtde_estoque(produtosSelect.getInt("qtde_estoque"));
                produto.setValor_unitario(produtosSelect.getInt("valor_unitario"));
                produto.setId(produtosSelect.getInt("id"));
-      
+              
+
+            
+               } 
            }
-           
+          
+         return produto;
            
        }catch(SQLException e){
             e.printStackTrace();
@@ -241,9 +245,13 @@ public class Produto {
     }
          
               public ProdutoClasse decrementaQuantidade(ProdutoClasse produto){
+                  
+                  System.out.println("mmmmm");
 
       String sql = "UPDATE produto SET qtde_estoque = qtde_estoque -"+produto.getQtde_estoque()+" WHERE produto.id ="+produto.getId();
-        
+      
+
+                  System.out.println(sql);
        PreparedStatement pStatement =  null;
        Connection connection = null;
               
@@ -253,8 +261,8 @@ public class Produto {
            pStatement = connection.prepareStatement(sql);
      
 
-           pStatement.setInt(1,produto.getQtde_estoque());
-           pStatement.setInt(2,produto.getId());
+//           pStatement.setInt(1,produto.getQtde_estoque());
+//           pStatement.setInt(2,produto.getId());
            
 
               

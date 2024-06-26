@@ -93,6 +93,11 @@ public class FornecedoresEdit extends javax.swing.JFrame {
             }
         });
 
+        try {
+            fornecedorCnpjEdit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         fornecedorCnpjEdit.setToolTipText("");
         fornecedorCnpjEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +112,11 @@ public class FornecedoresEdit extends javax.swing.JFrame {
             }
         });
 
+        try {
+            fornecedorTelefoneEdit.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         fornecedorTelefoneEdit.setToolTipText("");
         fornecedorTelefoneEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,12 +200,25 @@ public class FornecedoresEdit extends javax.swing.JFrame {
 
     private void fornecedorEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorEditSaveActionPerformed
         // TODO add your handling code here:
-       if(fornecedorNameEdit.getText().isEmpty()|| fornecedorEmailEdit.getText().isEmpty() ||fornecedorCnpjEdit.getText().isEmpty() || fornecedorTelefoneEdit.getText().isEmpty()){
+        
+            if(this.limpaCampo(fornecedorCnpjEdit.getText()).isEmpty()){
+             JOptionPane.showMessageDialog(null, "CNPJ não informado!");
+             return;
+        }
+        
+           if(this.limpaCampo(fornecedorTelefoneEdit.getText()).isEmpty()){
+             JOptionPane.showMessageDialog(null, "Telefone não informado!");
+             return;
+        }
+        
+        
+       if(fornecedorNameEdit.getText().isEmpty()|| fornecedorEmailEdit.getText().isEmpty() ||this.limpaCampo(fornecedorCnpjEdit.getText()).isEmpty() || this.limpaCampo(fornecedorTelefoneEdit.getText()).isEmpty()){
             
            JOptionPane.showMessageDialog(null, "Dados incompletos!");
            return;
             
         }
+    
        
         this.fornecedores.setNome(fornecedorNameEdit.getText());
         this.fornecedores.setEmail(fornecedorEmailEdit.getText());
@@ -227,6 +250,28 @@ public class FornecedoresEdit extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_fornecedorEditSaveActionPerformed
  
+     
+    private String limpaCampo(String campo){
+        
+      String campoLimpo = campo.replaceAll("[()\\-_\\.]", "");
+      
+      String retorno = "";
+      
+      
+        for (int i = 0; i < campoLimpo.length(); i++) {
+            if (campoLimpo.charAt(i) != ' ') {
+                retorno = retorno + campoLimpo.charAt(i);
+                
+            }
+              
+            }
+            
+            
+    
+        return retorno;
+        
+    }
+    
     private void limpaTela(java.awt.event.ActionEvent evt){
         
         fornecedorNameEdit.setText("");

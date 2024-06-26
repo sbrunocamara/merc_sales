@@ -69,37 +69,52 @@ public class ItemCompraController {
           
           try{
              
+
             ItemCompraClasse select = itemCompraModel.selectById(itemCompra.getId());
+            
+            
             
             ItemCompraClasse update = itemCompraModel.update(itemCompra);
             
-//            
-//            ProdutoController produtoController = new ProdutoController();
-//            ProdutoClasse produto = produtoController.selectById(itemCompra.getProduto_id());
-//            
+            
+       
+            
 ////            Integer produtoId = produto.getId();
 ////            Integer produtoQtde = produto.getQtde_estoque();   
 ////            
-//                   
-//            if(select.getQtde() < itemCompra.getQtde()){
-//                
-//               Integer Qtde = itemCompra.getQtde() - select.getQtde();
-//               produto.setQtde_estoque(Qtde);
-//               produtoController.incrementaQuantidade(produto);
-//       
-//                
-//            }
-//
-//            if(select.getQtde() > itemCompra.getQtde()){
-//                
-//               Integer Qtde = select.getQtde() - itemCompra.getQtde() ;
-//               produto.setQtde_estoque(Qtde);
+                   
+            if(select.getQtde() < itemCompra.getQtde()){
+                
+            ProdutoController produtoController = new ProdutoController();
+            ProdutoClasse produto = produtoController.selectById(itemCompra.getProduto_id());
+                
+                System.out.println("aqio");
+                
+               Integer Qtde = itemCompra.getQtde() - select.getQtde();
+               produto.setQtde_estoque(Qtde);
+               produtoController.incrementaQuantidade(produto);
+       
+                
+            }
+
+
+            if(select.getQtde() > itemCompra.getQtde()){
+
+            ProdutoController produtoController = new ProdutoController();
+            ProdutoClasse produto = produtoController.selectById(itemCompra.getProduto_id());
+
+//               Integer qtde = select.getQtde() - itemCompra.getQtde();
+               
+              System.out.println(produto.getId());
+                              
+               produto.setQtde_estoque(1);
+                             
+                System.out.println("vvvv");
+   
 //               produtoController.decrementaQuantidade(produto);
-//       
-//                
-//            }
-          
-            
+       
+
+            }
             
         
             return update;
