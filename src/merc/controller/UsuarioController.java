@@ -59,14 +59,35 @@ public class UsuarioController {
         
     }
     
+        public  UsuarioClasse autenticaUsuario(String email, String senha){
+        
+          UsuarioModel usuarioModel =  new UsuarioModel();
+          UsuarioClasse usuarios = null;
+          
+          try{
+             usuarios = usuarioModel.autenticaUsuario(email,senha);
+             
+        
+            return usuarios;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return usuarios;
+        
+        
+    }
+    
         public  UsuarioClasse update(UsuarioClasse usuario){
         
-          Fornecedor fornecedorModel =  new Fornecedor();
+          UsuarioModel usuarioModel =  new UsuarioModel();
             
           
           try{
               
-            FornecedorClasse update = fornecedorModel.update(fornecedor);
+            UsuarioClasse update = usuarioModel.update(usuario);
              
         
             return update;
@@ -76,18 +97,18 @@ public class UsuarioController {
 
           }
           
-         return fornecedor;
+         return usuario;
         
         
     }
     
-    public boolean remove(FornecedorClasse fornecedor){
+    public boolean remove(UsuarioClasse usuario){
         
-         Fornecedor fornecedorModel =  new Fornecedor();
+         UsuarioModel usuarioModel =  new UsuarioModel();
  
   
               
-            boolean remove = fornecedorModel.remove(fornecedor);
+            boolean remove = usuarioModel.remove(usuario);
              
         
             return remove;
@@ -95,6 +116,8 @@ public class UsuarioController {
             
           
         
-    }
+    }  
+           
+    
     
 }

@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import merc.Classes.FornecedorClasse;
 import merc.Classes.UsuarioClasse;
 import merc.controller.FornecedorController;
+import merc.controller.UsuarioController;
 
 
 
@@ -58,7 +59,7 @@ public class Usuarios extends javax.swing.JFrame {
         UsuáriosButtonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Fornecedores");
+        setTitle("Usuários");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -249,15 +250,15 @@ public class Usuarios extends javax.swing.JFrame {
 
         Integer id = (Integer)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 0);
 
-        FornecedorClasse fornecedor = new FornecedorClasse();
-        fornecedor.setId(id);
+        UsuarioClasse usuario = new UsuarioClasse();
+        usuario.setId(id);
 
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
 
         if(dialogResult == 0) {
-            FornecedorController fornecedorController = new FornecedorController();
-            boolean remove = fornecedorController.remove(fornecedor);
+            UsuarioController usuarioController = new UsuarioController();
+            boolean remove = usuarioController.remove(usuario);
 
             if(remove == true){
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
@@ -288,31 +289,31 @@ public class Usuarios extends javax.swing.JFrame {
         Integer id = (Integer)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 0);
         String nome = (String)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 1);
         String email = (String)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 2);
-        String cnpj = (String)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 3);
-        String telefone = (String)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 4);
+        String situacao = (String)jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 3);
 
-        FornecedorClasse fornecedor = new FornecedorClasse();
-        fornecedor.setId(id);
-        fornecedor.setNome(nome);
-        fornecedor.setEmail(email);
-        fornecedor.setCnpj(cnpj);
-        fornecedor.setTelefone(telefone);
+
+        UsuarioClasse usuario = new UsuarioClasse();
+        usuario.setId(id);
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+        usuario.setSituacao(situacao);
 
         this.dispose();
-        FornecedoresEdit telaFornecedorEdit = new FornecedoresEdit(fornecedor);
-        telaFornecedorEdit.setVisible(true);
+        UsuariosEdit telaUsuarioEdit = new UsuariosEdit(usuario);
+        telaUsuarioEdit.setVisible(true);
 
     }//GEN-LAST:event_UsuáriosButtonEditMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        UsuariosAdd telaUsuarioAdd = new UsuariosAdd();
+        telaUsuarioAdd.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        FornecedoresAdd telaFornecedorAdd = new FornecedoresAdd();
-        telaFornecedorAdd.setVisible(true);
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -356,7 +357,7 @@ public class Usuarios extends javax.swing.JFrame {
      
             
                 
-                new Usuarios(fornecedores).setVisible(true);
+                new Usuarios(usuarios).setVisible(true);
 
             }
         });
@@ -383,14 +384,14 @@ public class Usuarios extends javax.swing.JFrame {
     }
     
     public void carregaTela(){
-         FornecedorController  fornecedoresController = new FornecedorController();
-        ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
+        UsuarioController usuarioController = new UsuarioController();
+        ArrayList<UsuarioClasse> carregaUsuarios = usuarioController.select();
         
 
         
         
-        Usuarios telaFornecedores = new Usuarios(carregaFornecedores);
-        telaFornecedores.setVisible(true);
+        Usuarios telaUsuarios = new Usuarios(carregaUsuarios);
+        telaUsuarios.setVisible(true);
     }
     
     
