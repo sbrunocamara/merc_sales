@@ -125,14 +125,14 @@ public class ProdutoController {
         
     }
     
-        public ProdutoClasse decrementaQuantidade(ProdutoClasse produto){
+        public ProdutoClasse decrementaQuantidade(ProdutoClasse produto,Integer quantidade){
         
               Produto produtoModel =  new Produto();
             
           
           try{
               
-            ProdutoClasse update = produtoModel.decrementaQuantidade(produto);
+            ProdutoClasse update = produtoModel.decrementaQuantidade(produto,quantidade);
              
         
             return update;
@@ -147,14 +147,14 @@ public class ProdutoController {
         
     }
         
-                public ProdutoClasse incrementaQuantidade(ProdutoClasse produto){
+                public ProdutoClasse incrementaQuantidade(ProdutoClasse produto,Integer quantidade){
         
               Produto produtoModel =  new Produto();
             
           
           try{
               
-            ProdutoClasse update = produtoModel.incrementaQuantidade(produto);
+            ProdutoClasse update = produtoModel.incrementaQuantidade(produto,quantidade);
              
         
             return update;

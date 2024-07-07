@@ -16,6 +16,7 @@ import merc.controller.CompraController;
 import merc.controller.EnderecoController;
 import merc.controller.FornecedorController;
 import merc.controller.ItemCompraController;
+import merc.controller.ProdutoController;
 
 /**
  *
@@ -172,6 +173,11 @@ public class ComprasEdit extends javax.swing.JFrame {
         itemCompraButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCompraButtonDeleteActionPerformed(evt);
+            }
+        });
+        itemCompraButtonDelete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemCompraButtonDeleteKeyTyped(evt);
             }
         });
 
@@ -371,9 +377,13 @@ public class ComprasEdit extends javax.swing.JFrame {
 
     private void itemCompraButtonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemCompraButtonAddMouseClicked
         // TODO add your handling code here:
-//        this.dispose();
-//        ComprasAdd telaComprasAdd = new ComprasAdd();
-//        telaComprasAdd.setVisible(true);
+        this.dispose();
+        
+        ProdutoClasse produto = new ProdutoClasse();
+  
+        
+          itemCompraAdd itemCompraAddTela =  new itemCompraAdd(produto, this.compras);
+          itemCompraAddTela.setVisible(true);
     }//GEN-LAST:event_itemCompraButtonAddMouseClicked
 
     private void itemCompraButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompraButtonAddActionPerformed
@@ -425,6 +435,9 @@ public class ComprasEdit extends javax.swing.JFrame {
 
         Integer id = (Integer)jcompraItemsTable.getModel().getValueAt(jcompraItemsTable.getSelectedRow(), 0);
         Integer compraId = (Integer)jcompraItemsTable.getModel().getValueAt(jcompraItemsTable.getSelectedRow(), 1);
+        Integer quantidade = (Integer)jcompraItemsTable.getModel().getValueAt(jcompraItemsTable.getSelectedRow(), 4);
+        Integer codProduto = (Integer)jcompraItemsTable.getModel().getValueAt(jcompraItemsTable.getSelectedRow(), 3);
+        
 
         ItemCompraClasse produto = new ItemCompraClasse();
         produto.setId(id);
@@ -438,6 +451,12 @@ public class ComprasEdit extends javax.swing.JFrame {
 
             if(remove == true){
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+                
+                ProdutoClasse produtoClasse = new ProdutoClasse();
+                produtoClasse.setId(codProduto);
+                
+                ProdutoController produtoController = new ProdutoController();
+                produtoController.incrementaQuantidade(produtoClasse, quantidade);
                 this.dispose();
                 
                 ComprasEdit comprasEditTela = new ComprasEdit(this.compras);
@@ -493,6 +512,10 @@ public class ComprasEdit extends javax.swing.JFrame {
         telaCompras.setVisible(true);
         
     }//GEN-LAST:event_compraEditSaveMouseClicked
+
+    private void itemCompraButtonDeleteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemCompraButtonDeleteKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemCompraButtonDeleteKeyTyped
 
         public boolean preencheTabela(ArrayList<ItemCompraClasse> itemsCompra){
             DefaultTableModel tableModel = (DefaultTableModel) jcompraItemsTable.getModel();

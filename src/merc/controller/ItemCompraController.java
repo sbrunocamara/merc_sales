@@ -92,7 +92,7 @@ public class ItemCompraController {
                 
                Integer Qtde = itemCompra.getQtde() - select.getQtde();
                produto.setQtde_estoque(Qtde);
-               produtoController.incrementaQuantidade(produto);
+//               produtoController.incrementaQuantidade(produto);
        
                 
             }

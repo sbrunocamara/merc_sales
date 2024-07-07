@@ -244,14 +244,13 @@ public class Produto {
         
     }
          
-              public ProdutoClasse decrementaQuantidade(ProdutoClasse produto){
+              public ProdutoClasse decrementaQuantidade(ProdutoClasse produto,Integer quantidade){
                   
-                  System.out.println("mmmmm");
-
-      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque -"+produto.getQtde_estoque()+" WHERE produto.id ="+produto.getId();
+   
+      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque -"+quantidade+" WHERE produto.id ="+produto.getId();
       
 
-                  System.out.println(sql);
+
        PreparedStatement pStatement =  null;
        Connection connection = null;
               
@@ -293,9 +292,9 @@ public class Produto {
     }
          
        
-    public ProdutoClasse incrementaQuantidade(ProdutoClasse produto){
+    public ProdutoClasse incrementaQuantidade(ProdutoClasse produto,Integer quantidade){
 
-      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque +"+produto.getQtde_estoque()+" WHERE produto.id ="+produto.getId();
+      String sql = "UPDATE produto SET qtde_estoque = qtde_estoque +"+quantidade+" WHERE produto.id ="+produto.getId();
         
        PreparedStatement pStatement =  null;
        Connection connection = null;

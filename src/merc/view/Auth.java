@@ -154,6 +154,7 @@ public class Auth extends javax.swing.JFrame {
             
             Principal principalTela = new Principal();
             principalTela.setVisible(true);
+            this.setVisible(false);
             
         }else{
             JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos!");
