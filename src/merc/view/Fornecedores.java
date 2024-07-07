@@ -4,12 +4,44 @@
  */
 package merc.view;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import merc.Classes.FornecedorClasse;
 import merc.controller.FornecedorController;
+import merc.database.ConnectionDB;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPCell;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -18,23 +50,20 @@ import merc.controller.FornecedorController;
  */
 public class Fornecedores extends javax.swing.JFrame {
 
-    public  ArrayList<FornecedorClasse> fornecedores;
+    public ArrayList<FornecedorClasse> fornecedores;
+
     /**
      * Creates new form Fornecedores
      */
     public Fornecedores(ArrayList<FornecedorClasse> fornecedores) {
-        
-        
+
         this.dispose();
-        
-    
+
         initComponents();
-       
-        
+
         this.fornecedores = fornecedores;
-        
+
         this.preencheTabela();
-        
 
     }
 
@@ -55,6 +84,7 @@ public class Fornecedores extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         FornecedoresButtonEdit = new javax.swing.JButton();
         fornecedoresButtonDelete = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
@@ -171,6 +201,14 @@ public class Fornecedores extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reports.png"))); // NOI18N
+        jButton2.setText("Gerar relatório");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,20 +216,22 @@ public class Fornecedores extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
+                        .addGap(76, 76, 76)
+                        .addComponent(jButton2)
+                        .addGap(61, 61, 61)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
                                 .addComponent(FornecedoresButtonEdit)
                                 .addGap(18, 18, 18)
-                                .addComponent(fornecedoresButtonDelete))))
+                                .addComponent(fornecedoresButtonDelete))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -200,16 +240,20 @@ public class Fornecedores extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 48, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(FornecedoresButtonEdit)
                             .addComponent(fornecedoresButtonDelete)
-                            .addComponent(jButton1))))
+                            .addComponent(jButton1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -221,7 +265,7 @@ public class Fornecedores extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-       
+
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -240,12 +284,12 @@ public class Fornecedores extends javax.swing.JFrame {
 
     private void fornecedoresButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fornecedoresButtonDeleteMouseClicked
         // TODO add your handling code here:
-        if(jTableFornecedores.getSelectedRow() < 0){
+        if (jTableFornecedores.getSelectedRow() < 0) {
             return;
 
         }
 
-        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
+        Integer id = (Integer) jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
 
         FornecedorClasse fornecedor = new FornecedorClasse();
         fornecedor.setId(id);
@@ -253,15 +297,15 @@ public class Fornecedores extends javax.swing.JFrame {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
 
-        if(dialogResult == 0) {
+        if (dialogResult == 0) {
             FornecedorController fornecedorController = new FornecedorController();
             boolean remove = fornecedorController.remove(fornecedor);
 
-            if(remove == true){
+            if (remove == true) {
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
                 this.dispose();
                 this.carregaTela();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
             }
 
@@ -278,16 +322,16 @@ public class Fornecedores extends javax.swing.JFrame {
     private void FornecedoresButtonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FornecedoresButtonEditMouseClicked
         // TODO add your handling code here:
 
-        if(jTableFornecedores.getSelectedRow() < 0){
+        if (jTableFornecedores.getSelectedRow() < 0) {
             return;
 
         }
 
-        Integer id = (Integer)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
-        String nome = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
-        String email = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
-        String cnpj = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
-        String telefone = (String)jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 4);
+        Integer id = (Integer) jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 0);
+        String nome = (String) jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 1);
+        String email = (String) jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 2);
+        String cnpj = (String) jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 3);
+        String telefone = (String) jTableFornecedores.getModel().getValueAt(jTableFornecedores.getSelectedRow(), 4);
 
         FornecedorClasse fornecedor = new FornecedorClasse();
         fornecedor.setId(id);
@@ -313,12 +357,17 @@ public class Fornecedores extends javax.swing.JFrame {
         telaFornecedorAdd.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        
+        this.geraRelatorio();
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public void main(String args[]) {
-        
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -345,57 +394,114 @@ public class Fornecedores extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
-            
-  
+
             public void run() {
-     
-            
-                
+
                 new Fornecedores(fornecedores).setVisible(true);
 
             }
         });
-        
-     
-    }
-    
-    public boolean preencheTabela(){
-            DefaultTableModel tableModel = (DefaultTableModel) jTableFornecedores.getModel();
-                tableModel.setRowCount(0);
-                fornecedores.forEach((fornecedor)->{
-                    tableModel.addRow(new Object[] {
-                        fornecedor.getId(),
-                        fornecedor.getNome(),
-                        fornecedor.getEmail(),
-                        fornecedor.getTelefone(),
-                        fornecedor.getCnpj()
-                        
-                    });
-                
-            });
-                jTableFornecedores.setModel(tableModel);
-                
-                return true;
-    }
-    
-    public void carregaTela(){
-         FornecedorController  fornecedoresController = new FornecedorController();
-        ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
-        
 
-        
-        
+    }
+
+    public boolean preencheTabela() {
+        DefaultTableModel tableModel = (DefaultTableModel) jTableFornecedores.getModel();
+        tableModel.setRowCount(0);
+        fornecedores.forEach((fornecedor) -> {
+            tableModel.addRow(new Object[]{
+                fornecedor.getId(),
+                fornecedor.getNome(),
+                fornecedor.getEmail(),
+                fornecedor.getTelefone(),
+                fornecedor.getCnpj()
+
+            });
+
+        });
+        jTableFornecedores.setModel(tableModel);
+
+        return true;
+    }
+
+    public void carregaTela() {
+        FornecedorController fornecedoresController = new FornecedorController();
+        ArrayList<FornecedorClasse> carregaFornecedores = fornecedoresController.select();
+
         Fornecedores telaFornecedores = new Fornecedores(carregaFornecedores);
         telaFornecedores.setVisible(true);
     }
+
+    public void geraRelatorio() {
+
+        String dest = "C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/reports/PDF_DevMedia.pdf";
+        File file = new File(dest);
+        file.getParentFile().mkdirs();
+
+        try {
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(dest));
+            document.open();
+
+            Date data = new Date();
+//            String dataString = data.toString();
+            Chunk linebreak = new Chunk(new DottedLineSeparator());
+            String dataFormatada = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss").format(data);
+            
+ 
+            Font f=new Font(Font.FontFamily.COURIER,30.0f,Font.BOLD,BaseColor.BLACK);
+            Paragraph tittle = new Paragraph("Relatório Fornecedores",f);
+            tittle.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(tittle); 
+            document.add(linebreak);  
+  
+     
+            document.add(new Paragraph("Gerado em " + dataFormatada));
+            document.add(linebreak);
+ 
+            document.add(new Paragraph("Periodo:"));
+            document.add(linebreak);
+            
+            
+            float columnWidth[] = {7, 32, 32, 27, 25};
+            PdfPTable table = new PdfPTable(columnWidth);
+            table.setWidthPercentage(100);
+
+            table.addCell("ID");
+            table.addCell("Nome");
+            table.addCell("Email");
+            table.addCell("CNPJ");
+            table.addCell("Telefone");
+
+            for (FornecedorClasse element : this.fornecedores) {
+
+                table.addCell(element.getId().toString());
+                table.addCell(element.getNome());
+                table.addCell(element.getEmail());
+                table.addCell(element.getTelefone());
+                table.addCell(element.getCnpj());
+
+            }
+
+            document.add(table);
+            document.close();
+
+        } catch (DocumentException de) {
+            System.err.println(de.getMessage());
+        } catch (FileNotFoundException e) {
+        }
+    }
+
     
+        
     
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton FornecedoresButtonEdit;
     private javax.swing.JButton fornecedoresButtonDelete;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFornecedores;
