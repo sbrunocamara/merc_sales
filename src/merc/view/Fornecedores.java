@@ -39,6 +39,10 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import java.awt.Desktop;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -242,7 +246,7 @@ public class Fornecedores extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 48, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -251,9 +255,10 @@ public class Fornecedores extends javax.swing.JFrame {
                             .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -432,22 +437,34 @@ public class Fornecedores extends javax.swing.JFrame {
     }
 
     public void geraRelatorio() {
+        
 
-        String dest = "C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/reports/PDF_DevMedia.pdf";
+        Date dataName = new Date();
+        String dataFormatadaFileName = new SimpleDateFormat("dd_MM_YY_HHmmss").format(dataName);
+        
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+        
+        String fileName = "fornecedores_"+dataFormatadaFileName+".pdf";
+        
+        String dest = path+"/src/reports/"+fileName;
+        
         File file = new File(dest);
         file.getParentFile().mkdirs();
 
         try {
+            
+        Date data = new Date();
+        String dataFormatada = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss").format(data);
 
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(dest));
             document.open();
 
-            Date data = new Date();
+             int totalItems = this.fornecedores.size();
+                
 //            String dataString = data.toString();
             Chunk linebreak = new Chunk(new DottedLineSeparator());
-            String dataFormatada = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss").format(data);
-            
+
  
             Font f=new Font(Font.FontFamily.COURIER,30.0f,Font.BOLD,BaseColor.BLACK);
             Paragraph tittle = new Paragraph("Relatório Fornecedores",f);
@@ -458,9 +475,12 @@ public class Fornecedores extends javax.swing.JFrame {
      
             document.add(new Paragraph("Gerado em " + dataFormatada));
             document.add(linebreak);
- 
-            document.add(new Paragraph("Periodo:"));
+            
+             document.add(new Paragraph("Total de items: " + totalItems));
             document.add(linebreak);
+ 
+//            document.add(new Paragraph("Periodo:"));
+//            document.add(linebreak);
             
             
             float columnWidth[] = {7, 32, 32, 27, 25};
@@ -485,10 +505,15 @@ public class Fornecedores extends javax.swing.JFrame {
 
             document.add(table);
             document.close();
+            
+           File myFile = new File(dest);
+           Desktop.getDesktop().open(myFile);
 
         } catch (DocumentException de) {
             System.err.println(de.getMessage());
         } catch (FileNotFoundException e) {
+        }
+        catch(IOException e){
         }
     }
 

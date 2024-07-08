@@ -4,13 +4,31 @@
  */
 package merc.view;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import com.sun.scenario.effect.ImageData;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import merc.Classes.FornecedorClasse;
 import merc.Classes.ProdutoClasse;
 import merc.controller.ProdutoController;
-
-
 
 /**
  *
@@ -18,23 +36,20 @@ import merc.controller.ProdutoController;
  */
 public class Produtos extends javax.swing.JFrame {
 
-    public  ArrayList<ProdutoClasse> produtos;
+    public ArrayList<ProdutoClasse> produtos;
+
     /**
      * Creates new form Fornecedores
      */
     public Produtos(ArrayList<ProdutoClasse> produtos) {
-        
-        
+
         this.dispose();
-        
-    
+
         initComponents();
-       
-        
+
         this.produtos = produtos;
-        
+
         this.preencheTabela();
-        
 
     }
 
@@ -55,6 +70,7 @@ public class Produtos extends javax.swing.JFrame {
         produtosButtonAdd = new javax.swing.JButton();
         ProdutosButtonEdit = new javax.swing.JButton();
         produtosButtonDelete = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
@@ -171,6 +187,14 @@ public class Produtos extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reports.png"))); // NOI18N
+        jButton2.setText("Gerar relatório");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +202,9 @@ public class Produtos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
+                        .addGap(78, 78, 78)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -202,14 +228,16 @@ public class Produtos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ProdutosButtonEdit)
                             .addComponent(produtosButtonDelete)
-                            .addComponent(produtosButtonAdd))))
+                            .addComponent(produtosButtonAdd)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton2)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -232,7 +260,7 @@ public class Produtos extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-       
+
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -251,31 +279,27 @@ public class Produtos extends javax.swing.JFrame {
 
     private void ProdutosButtonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProdutosButtonEditMouseClicked
         // TODO add your handling code here:
-        
-        
-        if(jTableProdutos.getSelectedRow() < 0){
-            return;
-            
-        }
-        
-        Integer id = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 0);
-        String descricao = (String)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 1);
-        Integer valor = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 2);
-        Integer quantidade = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 3);
-        
-       ProdutoClasse produto = new ProdutoClasse();
-       produto.setDescricao(descricao);
-       produto.setValor_unitario(valor);
-       produto.setQtde_estoque(quantidade);
-       produto.setId(id);
-    
 
-        
-        
+        if (jTableProdutos.getSelectedRow() < 0) {
+            return;
+
+        }
+
+        Integer id = (Integer) jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 0);
+        String descricao = (String) jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 1);
+        Integer valor = (Integer) jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 2);
+        Integer quantidade = (Integer) jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 3);
+
+        ProdutoClasse produto = new ProdutoClasse();
+        produto.setDescricao(descricao);
+        produto.setValor_unitario(valor);
+        produto.setQtde_estoque(quantidade);
+        produto.setId(id);
+
         this.dispose();
         ProdutosEdit telaProdutoEdit = new ProdutosEdit(produto);
         telaProdutoEdit.setVisible(true);
-        
+
     }//GEN-LAST:event_ProdutosButtonEditMouseClicked
 
     private void produtosButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosButtonDeleteActionPerformed
@@ -284,44 +308,119 @@ public class Produtos extends javax.swing.JFrame {
 
     private void produtosButtonDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_produtosButtonDeleteMouseClicked
         // TODO add your handling code here:
-           if(jTableProdutos.getSelectedRow() < 0){
+        if (jTableProdutos.getSelectedRow() < 0) {
             return;
-            
-        }
-        
-        Integer id = (Integer)jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 0);
 
-        
-       ProdutoClasse produto = new ProdutoClasse();
-       produto.setId(id);
-       
-       int dialogButton = JOptionPane.YES_NO_OPTION;
+        }
+
+        Integer id = (Integer) jTableProdutos.getModel().getValueAt(jTableProdutos.getSelectedRow(), 0);
+
+        ProdutoClasse produto = new ProdutoClasse();
+        produto.setId(id);
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Você realmente deseja excluir o item selecionado?", "Confirmação", dialogButton);
-       
-       if(dialogResult == 0) {
-           ProdutoController produtoController = new ProdutoController();
-           boolean remove = produtoController.remove(produto);
-           
-           if(remove == true){
+
+        if (dialogResult == 0) {
+            ProdutoController produtoController = new ProdutoController();
+            boolean remove = produtoController.remove(produto);
+
+            if (remove == true) {
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
-                  this.dispose();
-                  this.carregaTela();
-           }else{
-               JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
-           }
-           
-             } else {
-               
-                         } 
-       
+                this.dispose();
+                this.carregaTela();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao remover o item!");
+            }
+
+        } else {
+
+        }
+
     }//GEN-LAST:event_produtosButtonDeleteMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.geraRelatorio();
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    public void geraRelatorio() {
+
+        Date dataName = new Date();
+        String dataFormatadaFileName = new SimpleDateFormat("dd_MM_YY_HHmmss").format(dataName);
+
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+
+        String fileName = "produtos_" + dataFormatadaFileName + ".pdf";
+
+        String dest = path + "/src/reports/" + fileName;
+
+        File file = new File(dest);
+        file.getParentFile().mkdirs();
+
+        try {
+
+            Date data = new Date();
+            String dataFormatada = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss").format(data);
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(dest));
+            document.open();
+
+//            String dataString = data.toString();
+            Chunk linebreak = new Chunk(new DottedLineSeparator());
+
+ 
+            int totalItems = this.produtos.size();
+            
+            Font f = new Font(Font.FontFamily.COURIER, 30.0f, Font.BOLD, BaseColor.BLACK);
+            Paragraph tittle = new Paragraph("Relatório de Produtos", f);
+            tittle.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(tittle);
+            document.add(linebreak);
+
+            document.add(new Paragraph("Gerado em " + dataFormatada));
+            document.add(linebreak);
+            
+            document.add(new Paragraph("Total de items: " + totalItems));
+            document.add(linebreak);
+
+            document.add(new Paragraph("Periodo:"));
+            document.add(linebreak);
+            float columnWidth[] = {7, 32, 10};
+            PdfPTable table = new PdfPTable(columnWidth);
+            table.setWidthPercentage(100);
+
+            table.addCell("ID");
+            table.addCell("Descrição");
+            table.addCell("Valor Un");
+
+            for (ProdutoClasse element : this.produtos) {
+
+                table.addCell(element.getId().toString());
+                table.addCell(element.getDescricao());
+                table.addCell("R$ " + element.getValor_unitario().toString());
+
+            }
+
+            document.add(table);
+            document.close();
+
+            File myFile = new File(dest);
+            Desktop.getDesktop().open(myFile);
+
+        } catch (DocumentException de) {
+            System.err.println(de.getMessage());
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+    }
 
     /**
      * @param args the command line arguments
      */
     public void main(String args[]) {
-        
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -350,55 +449,45 @@ public class Produtos extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
-            
-  
+
             public void run() {
-     
-            
-                
+
                 new Produtos(produtos).setVisible(true);
 
             }
         });
-        
-     
-    }
-    
-    public boolean preencheTabela(){
-            DefaultTableModel tableModel = (DefaultTableModel) jTableProdutos.getModel();
-                tableModel.setRowCount(0);
-                produtos.forEach((produto)->{
-                    System.out.println(produto.getId());
-                    tableModel.addRow(new Object[] {
-                        produto.getId(),
-                        produto.getDescricao(),
-                        produto.getValor_unitario(),
-                        produto.getQtde_estoque(),
-                        
-                    });
-                
-            });
-                jTableProdutos.setModel(tableModel);
-                
-                return true;
-    }
-    
-    public void carregaTela(){
-         ProdutoController  produtoController = new ProdutoController();
-        ArrayList<ProdutoClasse> carregaProdtuos = produtoController.select();
-        
 
-        
-        
+    }
+
+    public boolean preencheTabela() {
+        DefaultTableModel tableModel = (DefaultTableModel) jTableProdutos.getModel();
+        tableModel.setRowCount(0);
+        produtos.forEach((produto) -> {
+            System.out.println(produto.getId());
+            tableModel.addRow(new Object[]{
+                produto.getId(),
+                produto.getDescricao(),
+                produto.getValor_unitario(),
+                produto.getQtde_estoque(),});
+
+        });
+        jTableProdutos.setModel(tableModel);
+
+        return true;
+    }
+
+    public void carregaTela() {
+        ProdutoController produtoController = new ProdutoController();
+        ArrayList<ProdutoClasse> carregaProdtuos = produtoController.select();
+
         Produtos telaProdutos = new Produtos(carregaProdtuos);
         telaProdutos.setVisible(true);
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ProdutosButtonEdit;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFornecedores;

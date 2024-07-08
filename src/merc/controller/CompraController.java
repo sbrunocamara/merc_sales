@@ -68,6 +68,27 @@ public class CompraController {
         
     }
     
+        public  ArrayList<CompraClasse> selectFilter(String dataInicial, String dataFinal){
+        
+            Compra compraModel =  new Compra();
+          ArrayList<CompraClasse> compras = null;
+          
+          try{
+             compras = compraModel.selectFilter(dataInicial, dataFinal);
+             
+        
+            return compras;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return compras;
+        
+        
+    }
+    
         public  ArrayList<CompraClasse> selectOnly(){
         
             Compra compraModel =  new Compra();
