@@ -59,6 +59,27 @@ public class UsuarioController {
         
     }
     
+        public  ArrayList<UsuarioClasse> selectName(String nome){
+        
+          UsuarioModel usuarioModel =  new UsuarioModel();
+          ArrayList<UsuarioClasse> usuarios = null;
+          
+          try{
+             usuarios = usuarioModel.selectName(nome);
+             
+        
+            return usuarios;
+        
+             
+          }catch(Exception e){
+
+          }
+          
+         return usuarios;
+        
+        
+    }
+    
         public  UsuarioClasse autenticaUsuario(String email, String senha){
         
           UsuarioModel usuarioModel =  new UsuarioModel();

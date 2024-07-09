@@ -4,10 +4,29 @@
  */
 package merc.view;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import merc.Classes.FornecedorClasse;
+import merc.Classes.ProdutoClasse;
 import merc.Classes.UsuarioClasse;
 import merc.controller.FornecedorController;
 import merc.controller.UsuarioController;
@@ -57,6 +76,11 @@ public class Usuarios extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         UsuáriosButtonEdit = new javax.swing.JButton();
         UsuáriosButtonDelete = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        userNameBusca = new javax.swing.JTextArea();
+        buscarUsuarios = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuários");
@@ -69,21 +93,26 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/fornecedores.png"))); // NOI18N
         jLabel1.setText("Usuários");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(200, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 39, Short.MAX_VALUE))
+        );
 
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,9 +153,7 @@ public class Usuarios extends javax.swing.JFrame {
         jPanelFornecedores.setLayout(jPanelFornecedoresLayout);
         jPanelFornecedoresLayout.setHorizontalGroup(
             jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFornecedoresLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
         );
         jPanelFornecedoresLayout.setVerticalGroup(
             jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,30 +201,64 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
+        userNameBusca.setColumns(20);
+        userNameBusca.setRows(1);
+        userNameBusca.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(userNameBusca);
+
+        buscarUsuarios.setText("Buscar");
+        buscarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarUsuariosMouseClicked(evt);
+            }
+        });
+        buscarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarUsuariosActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Buscar usuários pelo nome");
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reports.png"))); // NOI18N
+        jButton2.setText("Gerar relatório");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(145, 145, 145)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(UsuáriosButtonEdit)
-                                .addGap(18, 18, 18)
-                                .addComponent(UsuáriosButtonDelete))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buscarUsuarios))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(92, 92, 92)
+                                        .addComponent(jLabel2)))
+                                .addGap(18, 18, 18)))
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(UsuáriosButtonEdit)
+                        .addGap(18, 18, 18)
+                        .addComponent(UsuáriosButtonDelete))
+                    .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -205,15 +266,32 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(buscarUsuarios)
+                                        .addGap(15, 15, 15))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(UsuáriosButtonEdit)
                             .addComponent(UsuáriosButtonDelete)
-                            .addComponent(jButton1))))
-                .addGap(18, 18, 18)
+                            .addComponent(jButton1))
+                        .addGap(18, 18, 18)))
                 .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -316,6 +394,109 @@ public class Usuarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void buscarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarUsuariosActionPerformed
+
+    private void buscarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarUsuariosMouseClicked
+        // TODO add your handling code here:
+        
+        String nome = userNameBusca.getText();
+        
+        if(nome == "" || nome == null || nome.isEmpty()){
+            
+            return;
+        
+    }
+        
+             
+         UsuarioController  usuarioController = new UsuarioController();
+        ArrayList<UsuarioClasse> carregaUsuarios = usuarioController.selectName(nome);
+        
+        this.usuarios = carregaUsuarios;
+        
+        this.preencheTabela();
+        
+
+    }//GEN-LAST:event_buscarUsuariosMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.geraRelatorio();
+    }//GEN-LAST:event_jButton2MouseClicked
+
+        public void geraRelatorio() {
+
+        Date dataName = new Date();
+        String dataFormatadaFileName = new SimpleDateFormat("dd_MM_YY_HHmmss").format(dataName);
+
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+
+        String fileName = "usuarios_" + dataFormatadaFileName + ".pdf";
+
+        String dest = path + "/src/reports/" + fileName;
+
+        File file = new File(dest);
+        file.getParentFile().mkdirs();
+
+        try {
+
+            Date data = new Date();
+            String dataFormatada = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss").format(data);
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(dest));
+            document.open();
+
+//            String dataString = data.toString();
+            Chunk linebreak = new Chunk(new DottedLineSeparator());
+
+ 
+            int totalItems = this.usuarios.size();
+            
+            Font f = new Font(Font.FontFamily.COURIER, 30.0f, Font.BOLD, BaseColor.BLACK);
+            Paragraph tittle = new Paragraph("Relatório de Usuários", f);
+            tittle.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(tittle);
+            document.add(linebreak);
+
+            document.add(new Paragraph("Gerado em " + dataFormatada));
+            document.add(linebreak);
+            
+            document.add(new Paragraph("Total de items: " + totalItems));
+            document.add(linebreak);
+
+            float columnWidth[] = {7, 32, 16,10};
+            PdfPTable table = new PdfPTable(columnWidth);
+            table.setWidthPercentage(100);
+
+            table.addCell("ID");
+            table.addCell("Nome");
+            table.addCell("Email");
+            table.addCell("Situação");
+
+            for (UsuarioClasse element : this.usuarios) {
+
+                table.addCell(element.getId().toString());
+                table.addCell(element.getNome());
+                table.addCell(element.getEmail());
+                table.addCell(element.getSituacao());
+
+            }
+
+            document.add(table);
+            document.close();
+
+            File myFile = new File(dest);
+            Desktop.getDesktop().open(myFile);
+
+        } catch (DocumentException de) {
+            System.err.println(de.getMessage());
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -399,12 +580,17 @@ public class Usuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton UsuáriosButtonDelete;
     private javax.swing.JButton UsuáriosButtonEdit;
+    private javax.swing.JButton buscarUsuarios;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFornecedores;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableUsuarios;
+    private javax.swing.JTextArea userNameBusca;
     // End of variables declaration//GEN-END:variables
 
     void run() {

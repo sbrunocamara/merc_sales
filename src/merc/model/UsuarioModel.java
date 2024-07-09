@@ -98,6 +98,51 @@ public class UsuarioModel {
        return usuarios;
         
     }
+    
+        public ArrayList<UsuarioClasse> selectName(String nome){
+        
+        String sql = "select id,nome,email,situacao from usuarios where nome='"+nome+"'";
+        
+        
+       PreparedStatement pStatement =  null;
+       Connection connection = null;
+       
+       ArrayList<UsuarioClasse> usuarios = null;
+       
+       try{
+           
+           connection = new ConnectionDB().getConnection();
+           pStatement = connection.prepareStatement(sql);
+           ResultSet usuariosSelect = pStatement.executeQuery(sql);
+           
+           if(usuariosSelect != null){
+               usuarios =  new ArrayList<>();
+               
+               while(usuariosSelect.next()){
+                   UsuarioClasse usuarioObjeto = new UsuarioClasse();
+                   usuarioObjeto.setNome(usuariosSelect.getString("nome"));
+                   usuarioObjeto.setEmail(usuariosSelect.getString("email"));
+                   usuarioObjeto.setSituacao(usuariosSelect.getString("situacao"));
+                   usuarioObjeto.setId(usuariosSelect.getInt("id"));
+                   usuarios.add(usuarioObjeto);
+               } 
+           }
+           
+           
+       }catch(SQLException e){
+            e.printStackTrace();
+       }finally{
+           try{
+           if(pStatement != null){pStatement.close();}
+           }catch(SQLException e){
+            e.printStackTrace();
+           
+       }
+       }
+          
+       return usuarios;
+        
+    }
         public UsuarioClasse autenticaUsuario(String email, String senha){
         
         String sql = "select id,nome,email,situacao,senha from usuarios where email='"+email+"' AND senha=MD5('"+senha+"')";

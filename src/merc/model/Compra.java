@@ -112,8 +112,8 @@ public class Compra {
         
         String sql = "select compra.id,data,fornecedor_id,fornecedor.nome as fornecedor "
                 + "from compra inner join fornecedor on fornecedor.id = compra.fornecedor_id"
-                + " WHERE compra.data BETWEEN "+dataInical+" AND "+dataFinal;
-        
+                + " WHERE compra.data BETWEEN '"+dataInical+"' AND '"+dataFinal+"'";
+
        PreparedStatement pStatement =  null;
        Connection connection = null;
        

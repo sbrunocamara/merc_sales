@@ -23,26 +23,26 @@ import merc.controller.ProdutoController;
  */
 public class ComprasAdd extends javax.swing.JFrame {
 
-    public  FornecedorClasse fornecedores;
+    public FornecedorClasse fornecedores;
+
     /**
      * Creates new form UsuariosAdd
      */
     public ComprasAdd(FornecedorClasse fornecedor) {
-        
+
         initComponents();
-        
+
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-        
+
         dataCompaAdd.setText(timeStamp);
-        
-        if(fornecedor.getId() > 0){
-            
-                   
+
+        if (fornecedor.getId() > 0) {
+
             this.fornecedores = fornecedor;
             this.preencheFornecedor();
-            
+
         }
-   
+
     }
 
     /**
@@ -172,37 +172,32 @@ public class ComprasAdd extends javax.swing.JFrame {
     private void dataCompaAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataCompaAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dataCompaAddActionPerformed
- 
-    private void limpaTela(java.awt.event.ActionEvent evt){
-        
+
+    private void limpaTela(java.awt.event.ActionEvent evt) {
+
 //        dataCompaAdd.setText("");
 //        fornecedorCompraAdd.setText("");
 //        quantidadeProdutoAdd.setText("");
-        
     }
-    
-    private void preencheFornecedor(){
-        
+
+    private void preencheFornecedor() {
+
         fornecedorCompraAdd.setText(this.fornecedores.getNome());
-        
+
     }
-    
+
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
 
-
         this.dispose();
-        
-        
-     CompraController  compraController = new CompraController();
+
+        CompraController compraController = new CompraController();
         ArrayList<CompraClasse> carregaCompras = compraController.select();
-        
-          
+
         Compras telaCompras = new Compras(carregaCompras);
         telaCompras.setVisible(true);
 
-        
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -221,42 +216,41 @@ public class ComprasAdd extends javax.swing.JFrame {
 
     private void fornecedoresSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fornecedoresSelectMouseClicked
         // TODO add your handling code here:
-        
+
         FornecedorController forncedorController = new FornecedorController();
         ArrayList<FornecedorClasse> fornecedores = forncedorController.select();
-        
+
+        this.setVisible(false);
         FornecedoresLista fornecedoresLista = new FornecedoresLista(fornecedores);
         fornecedoresLista.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_fornecedoresSelectMouseClicked
 
     private void produtoAddSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_produtoAddSaveMouseClicked
         // TODO add your handling code here:
-        
-          if(dataCompaAdd.getText().isEmpty() || fornecedorCompraAdd.getText().isEmpty()){
-            
-           JOptionPane.showMessageDialog(null, "Dados incompletos!");
-           return;
-            
+
+        if (dataCompaAdd.getText().isEmpty() || fornecedorCompraAdd.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Dados incompletos!");
+            return;
+
         }
-        
+
         CompraController comprasController = new CompraController();
-        Integer insert = comprasController.newCompra(dataCompaAdd.getText(),this.fornecedores.getId());
-        
-             
-   
-   
-         CompraController  compraController = new CompraController();
+        Integer insert = comprasController.newCompra(dataCompaAdd.getText(), this.fornecedores.getId());
+
+        JOptionPane.showMessageDialog(null, "Compra inserida com sucesso!");
+
+        CompraController compraController = new CompraController();
         ArrayList<CompraClasse> carregaCompras = compraController.select();
         
-          
-        Compras telaCompras = new Compras(carregaCompras);
-        telaCompras.setVisible(true);
-            
-            
- 
-      
+        this.dispose();
+
+//        Compras telaCompras = new Compras(carregaCompras);
+//        telaCompras.setVisible(true);
+
+
     }//GEN-LAST:event_produtoAddSaveMouseClicked
 
     /**

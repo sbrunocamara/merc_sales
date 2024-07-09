@@ -4,7 +4,25 @@
  */
 package merc.view;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import merc.Classes.CompraClasse;
@@ -22,6 +40,8 @@ import merc.controller.ProdutoController;
 public class Compras extends javax.swing.JFrame {
 
     public  ArrayList<CompraClasse> compras;
+    public Date dataInicioPicked;
+    public Date dataFimPicked;
     /**
      * Creates new form Fornecedores
      */
@@ -51,22 +71,27 @@ public class Compras extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
+        jDatePickerUtil2 = new org.jdatepicker.util.JDatePickerUtil();
+        dateComponentFormatter1 = new org.jdatepicker.impl.DateComponentFormatter();
+        jDateComponentFactory1 = new org.jdatepicker.JDateComponentFactory();
+        dateComponentFormatter2 = new org.jdatepicker.impl.DateComponentFormatter();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        dataInicio = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        dataFim = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        filtrarAction = new javax.swing.JButton();
         jPanelFornecedores = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCompras = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
         comprasButtonAdd = new javax.swing.JButton();
         comprasButtonEdit = new javax.swing.JButton();
         comprasButtonDelete = new javax.swing.JButton();
+        filtrarAction = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fornecedores");
@@ -79,78 +104,26 @@ public class Compras extends javax.swing.JFrame {
             }
         });
 
-        dataInicio.setColumns(20);
-        dataInicio.setRows(5);
-        jScrollPane2.setViewportView(dataInicio);
-
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/financeiro.png"))); // NOI18N
         jLabel1.setText("Compras");
-
-        dataFim.setColumns(20);
-        dataFim.setRows(5);
-        jScrollPane3.setViewportView(dataFim);
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("De:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Até:");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Filtrar período");
-
-        filtrarAction.setText("Filtrar");
-        filtrarAction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtrarActionActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filtrarAction))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel1)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(112, 112, 112)
+                .addComponent(jLabel1)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(filtrarAction)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))))
-                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
         jTableCompras.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,6 +160,9 @@ public class Compras extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableCompras);
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reports.png"))); // NOI18N
+        jButton2.setText("Gerar relatório");
+
         javax.swing.GroupLayout jPanelFornecedoresLayout = new javax.swing.GroupLayout(jPanelFornecedores);
         jPanelFornecedores.setLayout(jPanelFornecedoresLayout);
         jPanelFornecedoresLayout.setHorizontalGroup(
@@ -195,13 +171,22 @@ public class Compras extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
                 .addGap(31, 31, 31))
+            .addGroup(jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelFornecedoresLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanelFornecedoresLayout.setVerticalGroup(
             jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFornecedoresLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(0, 54, Short.MAX_VALUE))
+            .addGroup(jPanelFornecedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelFornecedoresLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         comprasButtonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
@@ -248,6 +233,35 @@ public class Compras extends javax.swing.JFrame {
             }
         });
 
+        filtrarAction.setText("Filtrar");
+        filtrarAction.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filtrarActionMouseClicked(evt);
+            }
+        });
+        filtrarAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtrarActionActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("De:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Até:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Filtrar período");
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reports.png"))); // NOI18N
+        jButton3.setText("Gerar relatório");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,33 +269,60 @@ public class Compras extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comprasButtonAdd)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(filtrarAction)
                         .addGap(18, 18, 18)
-                        .addComponent(comprasButtonEdit)
-                        .addGap(18, 18, 18)
-                        .addComponent(comprasButtonDelete)
-                        .addGap(31, 31, 31)))
+                        .addComponent(comprasButtonAdd)))
+                .addGap(18, 18, 18)
+                .addComponent(comprasButtonEdit)
+                .addGap(18, 18, 18)
+                .addComponent(comprasButtonDelete)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(231, 231, 231))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(341, 341, 341)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comprasButtonEdit)
-                    .addComponent(comprasButtonDelete)
-                    .addComponent(comprasButtonAdd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3)
+                            .addComponent(jLabel4)
+                            .addComponent(filtrarAction)
+                            .addComponent(jLabel3)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comprasButtonEdit)
+                            .addComponent(comprasButtonDelete)
+                            .addComponent(comprasButtonAdd))))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -395,7 +436,37 @@ public class Compras extends javax.swing.JFrame {
 
     private void filtrarActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarActionActionPerformed
         // TODO add your handling code here:
+        
+        if(jDateChooser2.getDate() == null || jDateChooser1.getDate() == null ){
+            return;
+        }
+
+        String dataInicioFormatada = new SimpleDateFormat("YYYY-MM-dd").format(jDateChooser2.getDate());
+        String dataFimFormatada = new SimpleDateFormat("YYYY-MM-dd").format(jDateChooser1.getDate());
+        
+        this.dataInicioPicked = jDateChooser2.getDate();
+        this.dataFimPicked = jDateChooser1.getDate();
+
+
+        CompraController  compraController = new CompraController();
+        ArrayList<CompraClasse> carregaCompras = compraController.selectFilter(dataInicioFormatada,dataFimFormatada);
+        
+
+         this.compras = carregaCompras;
+         
+         this.preencheTabela();
+
+        
     }//GEN-LAST:event_filtrarActionActionPerformed
+
+    private void filtrarActionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filtrarActionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filtrarActionMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        this.geraRelatorio();
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -470,6 +541,88 @@ public class Compras extends javax.swing.JFrame {
                 return true;
     }
     
+        public void geraRelatorio() {
+
+        Date dataName = new Date();
+        String dataFormatadaFileName = new SimpleDateFormat("dd_MM_YY_HHmmss").format(dataName);
+
+        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+
+        String fileName = "compras_" + dataFormatadaFileName + ".pdf";
+
+        String dest = path + "/src/reports/" + fileName;
+
+        File file = new File(dest);
+        file.getParentFile().mkdirs();
+
+        try {
+
+            Date data = new Date();
+            String dataFormatada = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss").format(data);
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(dest));
+            document.open();
+
+//            String dataString = data.toString();
+            Chunk linebreak = new Chunk(new DottedLineSeparator());
+
+ 
+            int totalItems = this.compras.size();
+            
+            Font f = new Font(Font.FontFamily.COURIER, 30.0f, Font.BOLD, BaseColor.BLACK);
+            Paragraph tittle = new Paragraph("Relatório de Compras", f);
+            tittle.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(tittle);
+            document.add(linebreak);
+
+            document.add(new Paragraph("Gerado em " + dataFormatada));
+            document.add(linebreak);
+            
+            document.add(new Paragraph("Total de items: " + totalItems));
+            document.add(linebreak);
+
+            if(this.dataFimPicked != null && this.dataInicioPicked != null){
+                
+           String dataInicioFormatada = new SimpleDateFormat("dd-MM-YYYY").format(this.dataInicioPicked);
+           String dataFimFormatada = new SimpleDateFormat("dd-MM-YYYY").format(this.dataFimPicked);
+
+                
+            document.add(new Paragraph("Periodo: "+dataInicioFormatada+" a "+dataFimFormatada ));
+            document.add(linebreak);
+            }
+        
+            float columnWidth[] = {7, 15, 25,25};
+            PdfPTable table = new PdfPTable(columnWidth);
+            table.setWidthPercentage(100);
+
+            table.addCell("ID");
+            table.addCell("Data");
+            table.addCell("Fornecedor");
+            table.addCell("Cod Fornecedor");
+
+            for (CompraClasse element : this.compras) {
+
+                table.addCell(element.getId().toString());
+                table.addCell(element.getData());
+                table.addCell(element.getNomeFornecedor());
+                table.addCell(element.getFornecedor_id().toString());
+
+            }
+
+            document.add(table);
+            document.close();
+
+            File myFile = new File(dest);
+            Desktop.getDesktop().open(myFile);
+
+        } catch (DocumentException de) {
+            System.err.println(de.getMessage());
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+    }
+    
     public void carregaTela(){
          CompraController  compraController = new CompraController();
         ArrayList<CompraClasse> carregaCompras = compraController.select();
@@ -487,9 +640,16 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JButton comprasButtonAdd;
     private javax.swing.JButton comprasButtonDelete;
     private javax.swing.JButton comprasButtonEdit;
-    private javax.swing.JTextArea dataFim;
-    private javax.swing.JTextArea dataInicio;
+    private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
+    private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter2;
     private javax.swing.JButton filtrarAction;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private org.jdatepicker.JDateComponentFactory jDateComponentFactory1;
+    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
+    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -497,8 +657,6 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFornecedores;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableCompras;
     // End of variables declaration//GEN-END:variables
 

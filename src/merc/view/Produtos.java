@@ -463,7 +463,6 @@ public class Produtos extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) jTableProdutos.getModel();
         tableModel.setRowCount(0);
         produtos.forEach((produto) -> {
-            System.out.println(produto.getId());
             tableModel.addRow(new Object[]{
                 produto.getId(),
                 produto.getDescricao(),
