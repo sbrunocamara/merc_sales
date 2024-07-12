@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Usuarios.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/controller/ProdutoController.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/Classes/UsuarioClasse.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Fornecedores.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/model/UsuarioModel.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/ComprasAdd.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Auth.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Compras.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Principal.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/Produtos.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/model/Produto.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/controller/UsuarioController.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/Classes/CompraClasse.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/model/Compra.java</file>
+            <file>file:/C:/Users/bsbru/Desktop/Projetos/merc_bruno/src/merc/view/ClientesEdit.java</file>
+        </group>
     </open-files>
 </project-private>
